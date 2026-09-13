@@ -8,6 +8,7 @@ import { Flashcards } from './features/Flashcards';
 import { EssayView } from './features/EssayView';
 import { Stats } from './features/Stats';
 import { Settings } from './features/Settings';
+import { KnowledgeMap } from './features/KnowledgeMap';
 import { ToastProvider } from './components/ui';
 import { completeSession, useStore } from './core/store';
 import type { PracticeSessionSpec } from './core/practice';
@@ -21,10 +22,22 @@ type View =
   | 'wrong'
   | 'cards'
   | 'essay'
+  | 'map'
   | 'stats'
   | 'settings';
 
-const VIEWS: View[] = ['home', 'setup', 'run', 'result', 'wrong', 'cards', 'essay', 'stats', 'settings'];
+const VIEWS: View[] = [
+  'home',
+  'setup',
+  'run',
+  'result',
+  'wrong',
+  'cards',
+  'essay',
+  'map',
+  'stats',
+  'settings',
+];
 
 function parseHash(): View {
   const raw = window.location.hash.replace(/^#\/?/, '').split('?')[0];
@@ -35,13 +48,15 @@ const NAV: { view: View; label: string; mark: string }[] = [
   { view: 'home', label: '首页', mark: '首' },
   { view: 'setup', label: '刷题', mark: '题' },
   { view: 'wrong', label: '错题本', mark: '错' },
+  { view: 'map', label: '知识脉络', mark: '脉' },
   { view: 'cards', label: '速记卡', mark: '卡' },
   { view: 'essay', label: '大题', mark: '大' },
   { view: 'stats', label: '统计', mark: '数' },
   { view: 'settings', label: '我的', mark: '我' },
 ];
 
-const TABS: View[] = ['home', 'setup', 'cards', 'settings'];
+/** 底部 Tab（手机）——顺序即用户的主要动线 */
+const TABS: View[] = ['home', 'setup', 'map', 'cards', 'settings'];
 
 export default function App() {
   const [view, setView] = useState<View>(parseHash);
@@ -131,13 +146,16 @@ export default function App() {
             ) : null}
 
             {effectiveView === 'cards' ? <Flashcards onBack={() => go('home')} /> : null}
+            {effectiveView === 'map' ? (
+              <KnowledgeMap onPractice={startPractice} onBack={() => go('home')} />
+            ) : null}
             {effectiveView === 'essay' ? <EssayView onBack={() => go('home')} /> : null}
             {effectiveView === 'stats' ? <Stats onBack={() => go('home')} /> : null}
             {effectiveView === 'settings' ? <Settings onBack={() => go('home')} /> : null}
           </main>
         </div>
 
-        <nav className="tabbar">
+        <nav className="tabbar" style={{ gridTemplateColumns: `repeat(${TABS.length}, 1fr)` }}>
           {TABS.map((t) => {
             const n = NAV.find((x) => x.view === t)!;
             return (
