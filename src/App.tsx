@@ -1,0 +1,160 @@
+import { useEffect, useState } from 'react';
+import { Home } from './features/Home';
+import { PracticeSetup } from './features/PracticeSetup';
+import { PracticeRun, type SessionResult } from './features/PracticeRun';
+import { Result } from './features/Result';
+import { WrongBook } from './features/WrongBook';
+import { Flashcards } from './features/Flashcards';
+import { EssayView } from './features/EssayView';
+import { Stats } from './features/Stats';
+import { Settings } from './features/Settings';
+import { ToastProvider } from './components/ui';
+import { completeSession, useStore } from './core/store';
+import type { PracticeSessionSpec } from './core/practice';
+import { questions } from './core/data';
+
+type View =
+  | 'home'
+  | 'setup'
+  | 'run'
+  | 'result'
+  | 'wrong'
+  | 'cards'
+  | 'essay'
+  | 'stats'
+  | 'settings';
+
+const VIEWS: View[] = ['home', 'setup', 'run', 'result', 'wrong', 'cards', 'essay', 'stats', 'settings'];
+
+function parseHash(): View {
+  const raw = window.location.hash.replace(/^#\/?/, '').split('?')[0];
+  return (VIEWS as string[]).includes(raw) ? (raw as View) : 'home';
+}
+
+const NAV: { view: View; label: string; mark: string }[] = [
+  { view: 'home', label: '首页', mark: '首' },
+  { view: 'setup', label: '刷题', mark: '题' },
+  { view: 'wrong', label: '错题本', mark: '错' },
+  { view: 'cards', label: '速记卡', mark: '卡' },
+  { view: 'essay', label: '大题', mark: '大' },
+  { view: 'stats', label: '统计', mark: '数' },
+  { view: 'settings', label: '我的', mark: '我' },
+];
+
+const TABS: View[] = ['home', 'setup', 'cards', 'settings'];
+
+export default function App() {
+  const [view, setView] = useState<View>(parseHash);
+  const [session, setSession] = useState<PracticeSessionSpec | null>(null);
+  const [result, setResult] = useState<SessionResult | null>(null);
+  const [runKey, setRunKey] = useState(0);
+  const store = useStore();
+
+  useEffect(() => {
+    const onHash = () => setView(parseHash());
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
+  const go = (v: View) => {
+    if (v === 'run' && !session) return;
+    window.location.hash = `#/${v}`;
+    setView(v);
+    window.scrollTo({ top: 0 });
+  };
+
+  const startPractice = (spec: PracticeSessionSpec) => {
+    if (!spec.questions.length) return;
+    setSession(spec);
+    setRunKey((k) => k + 1);
+    go('run');
+  };
+
+  /* 进入 run / result 但缺少状态时（例如直接刷新页面），回到首页 */
+  const effectiveView: View =
+    (view === 'run' && !session) || (view === 'result' && !result) ? 'home' : view;
+
+  return (
+    <ToastProvider>
+      <div className="shell">
+        <aside className="sidebar">
+          <div className="sidebar-brand">
+            <b>现代设计史</b>
+            <span>刷题复习站 · {questions.length} 题</span>
+          </div>
+          {NAV.map((n) => (
+            <button
+              key={n.view}
+              className={`navitem ${effectiveView === n.view ? 'is-on' : ''}`}
+              onClick={() => go(n.view)}
+            >
+              <span className="navmark" aria-hidden>
+                {n.mark}
+              </span>
+              {n.label}
+            </button>
+          ))}
+          <div style={{ marginTop: 'auto' }} className="tiny">
+            累计作答 {store.totals.answered} 题
+          </div>
+        </aside>
+
+        <div>
+          <main className="main">
+            {effectiveView === 'home' ? (
+              <Home onPractice={startPractice} go={go} />
+            ) : null}
+
+            {effectiveView === 'setup' ? (
+              <PracticeSetup onPractice={startPractice} onBack={() => go('home')} />
+            ) : null}
+
+            {effectiveView === 'run' && session ? (
+              <PracticeRun
+                key={runKey}
+                spec={session}
+                onExit={() => go('home')}
+                onFinish={(r) => {
+                  setResult(r);
+                  completeSession();
+                  go('result');
+                }}
+              />
+            ) : null}
+
+            {effectiveView === 'result' && result ? (
+              <Result result={result} onPractice={startPractice} onHome={() => go('home')} />
+            ) : null}
+
+            {effectiveView === 'wrong' ? (
+              <WrongBook onPractice={startPractice} onBack={() => go('home')} />
+            ) : null}
+
+            {effectiveView === 'cards' ? <Flashcards onBack={() => go('home')} /> : null}
+            {effectiveView === 'essay' ? <EssayView onBack={() => go('home')} /> : null}
+            {effectiveView === 'stats' ? <Stats onBack={() => go('home')} /> : null}
+            {effectiveView === 'settings' ? <Settings onBack={() => go('home')} /> : null}
+          </main>
+        </div>
+
+        <nav className="tabbar">
+          {TABS.map((t) => {
+            const n = NAV.find((x) => x.view === t)!;
+            return (
+              <button
+                key={t}
+                className={`tab ${effectiveView === t ? 'is-on' : ''}`}
+                onClick={() => go(t)}
+              >
+                <span className="tab-dot" aria-hidden>
+                  {n.mark}
+                </span>
+                {n.label}
+              </button>
+            );
+          })}
+        </nav>
+      </div>
+    </ToastProvider>
+  );
+}

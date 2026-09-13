@@ -1,0 +1,3059 @@
+{
+  "schemaVersion": "1.0.0",
+  "course": "现代设计史",
+  "generatedFrom": [
+    {
+      "homework": 1,
+      "workId": "54136028",
+      "file": "现代设计史-作业(一)-题库.md"
+    },
+    {
+      "homework": 3,
+      "workId": "54135980",
+      "file": "现代设计史-作业(三)-题库.md"
+    },
+    {
+      "homework": 2,
+      "workId": "54136012",
+      "file": "现代设计史-作业(二)-题库.md"
+    },
+    {
+      "homework": 4,
+      "workId": "54135953",
+      "file": "现代设计史-作业(四)-题库.md"
+    }
+  ],
+  "stats": {
+    "total": 78,
+    "byType": {
+      "single": 33,
+      "multiple": 4,
+      "judge": 18,
+      "blank": 23
+    },
+    "byChapter": {
+      "综合": 6,
+      "装饰艺术运动": 8,
+      "后现代主义设计": 14,
+      "荷兰风格派": 4,
+      "工艺美术运动": 10,
+      "工业设计与国际主义": 5,
+      "新艺术运动": 15,
+      "俄国构成主义": 2,
+      "包豪斯": 7,
+      "现代主义设计萌起": 5,
+      "工业革命前设计": 2
+    }
+  },
+  "questions": [
+    {
+      "id": "hw1-q01",
+      "type": "single",
+      "chapter": "综合",
+      "stem": "被称为现代“广告之父”的是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "儒勒·舍雷"
+        },
+        {
+          "key": "B",
+          "text": "爱米勒·加雷"
+        },
+        {
+          "key": "C",
+          "text": "萨穆尔.宾"
+        },
+        {
+          "key": "D",
+          "text": "勒内·拉里克"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A"
+        ],
+        "display": "A",
+        "accepted": [
+          "A"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:儒勒·舍雷"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 1,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q02",
+      "type": "single",
+      "chapter": "装饰艺术运动",
+      "stem": "法国“装饰艺术”风格最集中的体现在（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "舞台艺术"
+        },
+        {
+          "key": "B",
+          "text": "汽车设计"
+        },
+        {
+          "key": "C",
+          "text": "室内装饰"
+        },
+        {
+          "key": "D",
+          "text": "家具设计"
+        }
+      ],
+      "answer": {
+        "value": [
+          "D"
+        ],
+        "display": "D",
+        "accepted": [
+          "D"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 2,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q03",
+      "type": "single",
+      "chapter": "后现代主义设计",
+      "stem": "“纽约的日落”组合沙发是（）设计的。",
+      "options": [
+        {
+          "key": "A",
+          "text": "马内奥·波特"
+        },
+        {
+          "key": "B",
+          "text": "马都·顿"
+        },
+        {
+          "key": "C",
+          "text": "索扎斯"
+        },
+        {
+          "key": "D",
+          "text": "盖当罗·比希"
+        }
+      ],
+      "answer": {
+        "value": [
+          "D"
+        ],
+        "display": "D",
+        "accepted": [
+          "D"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:比希",
+        "人物:索扎斯",
+        "作品:纽约的日落"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 3,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q04",
+      "type": "single",
+      "chapter": "后现代主义设计",
+      "stem": "《悉尼歌剧院》的设计者是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "菲利普·约翰逊"
+        },
+        {
+          "key": "B",
+          "text": "约翰·伍重"
+        },
+        {
+          "key": "C",
+          "text": "罗伯特.文丘里"
+        },
+        {
+          "key": "D",
+          "text": "贝聿铭"
+        }
+      ],
+      "answer": {
+        "value": [
+          "B"
+        ],
+        "display": "B",
+        "accepted": [
+          "B"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:伍重",
+        "人物:文丘里",
+        "人物:约翰逊",
+        "人物:贝聿铭",
+        "作品:悉尼歌剧院"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 4,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q05",
+      "type": "single",
+      "chapter": "荷兰风格派",
+      "stem": "下面属于俄国构成主义代表人物的是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "格利特·里特维德"
+        },
+        {
+          "key": "B",
+          "text": "勒・柯布西耶"
+        },
+        {
+          "key": "C",
+          "text": "西奥·凡·杜斯伯格"
+        },
+        {
+          "key": "D",
+          "text": "弗拉基米尔·塔特林"
+        }
+      ],
+      "answer": {
+        "value": [
+          "D"
+        ],
+        "display": "D",
+        "accepted": [
+          "D"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:塔特林",
+        "人物:柯布西耶",
+        "人物:里特维德",
+        "运动:构成主义"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 5,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q06",
+      "type": "single",
+      "chapter": "装饰艺术运动",
+      "stem": "属于罗伯特.文丘里设计的作品有（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "栗子山别墅"
+        },
+        {
+          "key": "B",
+          "text": "流水别墅"
+        },
+        {
+          "key": "C",
+          "text": "朗香教堂"
+        },
+        {
+          "key": "D",
+          "text": "帝国大厦"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A"
+        ],
+        "display": "A",
+        "accepted": [
+          "A"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:文丘里",
+        "作品:帝国大厦",
+        "作品:朗香教堂",
+        "作品:栗子山别墅",
+        "作品:流水别墅"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 6,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q07",
+      "type": "single",
+      "chapter": "后现代主义设计",
+      "stem": "悉尼歌剧院是（）设计的。",
+      "options": [
+        {
+          "key": "A",
+          "text": "菲力普·约翰逊"
+        },
+        {
+          "key": "B",
+          "text": "米斯·凡·德罗"
+        },
+        {
+          "key": "C",
+          "text": "约翰·伍重"
+        },
+        {
+          "key": "D",
+          "text": "山琦实"
+        }
+      ],
+      "answer": {
+        "value": [
+          "C"
+        ],
+        "display": "C",
+        "accepted": [
+          "C"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:伍重",
+        "人物:约翰逊",
+        "作品:悉尼歌剧院"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 7,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q08",
+      "type": "single",
+      "chapter": "装饰艺术运动",
+      "stem": "下面对装饰艺术产生重要影响的是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "古希腊艺术"
+        },
+        {
+          "key": "B",
+          "text": "中世纪艺术"
+        },
+        {
+          "key": "C",
+          "text": "古埃及艺术"
+        },
+        {
+          "key": "D",
+          "text": "日本艺术"
+        }
+      ],
+      "answer": {
+        "value": [
+          "C"
+        ],
+        "display": "C",
+        "accepted": [
+          "C"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 8,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q09",
+      "type": "single",
+      "chapter": "工艺美术运动",
+      "stem": "被视为德国现代设计的奠基人，德国现代设计之父的设计家是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "彼得・贝伦斯"
+        },
+        {
+          "key": "B",
+          "text": "威廉・莫里斯"
+        },
+        {
+          "key": "C",
+          "text": "沃尔特・格罗佩斯"
+        },
+        {
+          "key": "D",
+          "text": "密斯・凡·德洛"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A"
+        ],
+        "display": "A",
+        "accepted": [
+          "A"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:密斯",
+        "人物:莫里斯",
+        "人物:贝伦斯"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 9,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q10",
+      "type": "single",
+      "chapter": "综合",
+      "stem": "以下不属于视觉传达设计的是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "企业形象设计"
+        },
+        {
+          "key": "B",
+          "text": "字体设计"
+        },
+        {
+          "key": "C",
+          "text": "展示设计"
+        },
+        {
+          "key": "D",
+          "text": "公共艺术设计"
+        }
+      ],
+      "answer": {
+        "value": [
+          "D"
+        ],
+        "display": "D",
+        "accepted": [
+          "D"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 10,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q11",
+      "type": "single",
+      "chapter": "工业设计与国际主义",
+      "stem": "（）是现代设计的主体和核心。",
+      "options": [
+        {
+          "key": "A",
+          "text": "建筑设计"
+        },
+        {
+          "key": "B",
+          "text": "工业设计"
+        },
+        {
+          "key": "C",
+          "text": "环境设计"
+        },
+        {
+          "key": "D",
+          "text": "平面设计"
+        }
+      ],
+      "answer": {
+        "value": [
+          "B"
+        ],
+        "display": "B",
+        "accepted": [
+          "B"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 11,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q12",
+      "type": "single",
+      "chapter": "后现代主义设计",
+      "stem": "被认为是后现代主义代表作之一AT＆T大厦是（）的作品。",
+      "options": [
+        {
+          "key": "A",
+          "text": "查尔斯·穆尔"
+        },
+        {
+          "key": "B",
+          "text": "菲力普·约翰逊"
+        },
+        {
+          "key": "C",
+          "text": "米斯·凡·德罗"
+        },
+        {
+          "key": "D",
+          "text": "吉奥·庞迪"
+        }
+      ],
+      "answer": {
+        "value": [
+          "B"
+        ],
+        "display": "B",
+        "accepted": [
+          "B"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:约翰逊",
+        "作品:AT＆T大厦",
+        "运动:后现代主义"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 12,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q13",
+      "type": "single",
+      "chapter": "后现代主义设计",
+      "stem": "英国建筑家里查·罗杰斯设计的法国巴黎蓬皮杜文化中心和伦敦的洛依德保险公司大厦，成为（）建筑设计的典型代表。",
+      "options": [
+        {
+          "key": "A",
+          "text": "微电子风格"
+        },
+        {
+          "key": "B",
+          "text": "高科技风格"
+        },
+        {
+          "key": "C",
+          "text": "减少主义风格"
+        },
+        {
+          "key": "D",
+          "text": "解构主义风格"
+        }
+      ],
+      "answer": {
+        "value": [
+          "B"
+        ],
+        "display": "B",
+        "accepted": [
+          "B"
+        ]
+      },
+      "explain": "---",
+      "tags": [
+        "作品:蓬皮杜",
+        "运动:减少主义",
+        "运动:微电子风格",
+        "运动:解构主义",
+        "运动:高科技风格"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 13,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q14",
+      "type": "single",
+      "chapter": "新艺术运动",
+      "stem": "包豪斯的第三任校长是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "米斯・凡・德・罗"
+        },
+        {
+          "key": "B",
+          "text": "格罗皮乌斯"
+        },
+        {
+          "key": "C",
+          "text": "汉斯・迈耶"
+        },
+        {
+          "key": "D",
+          "text": "亨利·凡·德·威尔德"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A"
+        ],
+        "display": "A",
+        "accepted": [
+          "A"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:威尔德",
+        "人物:格罗皮乌斯",
+        "运动:包豪斯"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 14,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q15",
+      "type": "single",
+      "chapter": "装饰艺术运动",
+      "stem": "克莱斯勒大厦的设计者是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "威廉•兰柏"
+        },
+        {
+          "key": "B",
+          "text": "阿伦"
+        },
+        {
+          "key": "C",
+          "text": "沙里宁"
+        },
+        {
+          "key": "D",
+          "text": "赖特"
+        }
+      ],
+      "answer": {
+        "value": [
+          "B"
+        ],
+        "display": "B",
+        "accepted": [
+          "B"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:兰柏",
+        "人物:赖特",
+        "人物:阿伦",
+        "作品:克莱斯勒大厦"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 15,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw1-q16",
+      "type": "judge",
+      "chapter": "荷兰风格派",
+      "stem": "抽象主义艺术家康定斯基是荷兰风格派的重要代表人物。",
+      "options": [],
+      "answer": {
+        "value": [
+          "F"
+        ],
+        "display": "错",
+        "accepted": [
+          "错",
+          "错误",
+          "F",
+          "false",
+          "×",
+          "否"
+        ]
+      },
+      "explain": "蒙特里安\n\n\n---",
+      "tags": [
+        "人物:康定斯基",
+        "运动:风格派"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 16,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw1-q17",
+      "type": "judge",
+      "chapter": "新艺术运动",
+      "stem": "德国青年风格属于新艺术运动直线型风格。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:新艺术运动",
+        "运动:青年风格"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 17,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw1-q18",
+      "type": "judge",
+      "chapter": "后现代主义设计",
+      "stem": "英国波普设计运动是兴起于20世纪60年代的前卫设计运动。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:波普",
+        "运动:波普设计"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 18,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw1-q19",
+      "type": "judge",
+      "chapter": "俄国构成主义",
+      "stem": "《第三国际纪念塔方案》的设计者是俄国构成主义代表人物埃尔·李西斯基。",
+      "options": [],
+      "answer": {
+        "value": [
+          "F"
+        ],
+        "display": "错",
+        "accepted": [
+          "错",
+          "错误",
+          "F",
+          "false",
+          "×",
+          "否"
+        ]
+      },
+      "explain": "弗拉基米尔·塔特林\n\n\n---",
+      "tags": [
+        "人物:埃尔·李西斯基",
+        "人物:李西斯基",
+        "作品:第三国际纪念塔",
+        "运动:构成主义"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 19,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw1-q20",
+      "type": "judge",
+      "chapter": "俄国构成主义",
+      "stem": "《红楔子攻打白色》的创作者是俄国构成主义大师埃尔·李西斯基。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:埃尔·李西斯基",
+        "人物:李西斯基",
+        "作品:红楔子攻打白色",
+        "运动:构成主义"
+      ],
+      "source": {
+        "homework": 1,
+        "workId": "54136028",
+        "no": 20,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw2-q01",
+      "type": "blank",
+      "chapter": "包豪斯",
+      "stem": "[?]年，德国设计学院包豪斯在[?]成功举办国际构成主义和达达主义研讨大会，促进了新的[?]观念的形成。",
+      "options": [],
+      "answer": {
+        "value": [
+          "1922",
+          "杜塞尔多夫",
+          "国际构成主义"
+        ],
+        "display": "1922；杜塞尔多夫；国际构成主义",
+        "accepted": [
+          "1922",
+          "杜塞尔多夫",
+          "国际构成主义"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:包豪斯",
+        "运动:构成主义"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 1,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "",
+        "年，德国设计学院包豪斯在",
+        "成功举办国际构成主义和达达主义研讨大会，促进了新的",
+        "观念的形成。"
+      ],
+      "blankCount": 3
+    },
+    {
+      "id": "hw2-q02",
+      "type": "blank",
+      "chapter": "后现代主义设计",
+      "stem": "法国设计家菲力普·斯塔克是[?]主义最重要的代表人物。",
+      "options": [],
+      "answer": {
+        "value": [
+          "减少"
+        ],
+        "display": "减少",
+        "accepted": [
+          "减少"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:斯塔克"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 2,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "法国设计家菲力普·斯塔克是",
+        "主义最重要的代表人物。"
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw2-q03",
+      "type": "blank",
+      "chapter": "工业设计与国际主义",
+      "stem": "著名的“巴塞罗那椅子”设计者是[?]，成为新家具的经典作品。",
+      "options": [],
+      "answer": {
+        "value": [
+          "密斯·凡·德·洛"
+        ],
+        "display": "密斯·凡·德·洛",
+        "accepted": [
+          "密斯·凡·德·洛"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "作品:巴塞罗那椅子"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 3,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "著名的“巴塞罗那椅子”设计者是",
+        "，成为新家具的经典作品。"
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw2-q04",
+      "type": "blank",
+      "chapter": "综合",
+      "stem": "1851年英国成功举办了第一届世界博览会，展馆运用全玻璃钢结构建成，称为“[?]”，被誉为20世纪现代建筑的开山之作。",
+      "options": [],
+      "answer": {
+        "value": [
+          "水晶宫"
+        ],
+        "display": "水晶宫",
+        "accepted": [
+          "水晶宫"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 4,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "1851年英国成功举办了第一届世界博览会，展馆运用全玻璃钢结构建成，称为“",
+        "”，被誉为20世纪现代建筑的开山之作。"
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw2-q05",
+      "type": "blank",
+      "chapter": "现代主义设计萌起",
+      "stem": "1914科隆大展综合中心大楼设计者是[?]。",
+      "options": [],
+      "answer": {
+        "value": [
+          "格罗皮乌斯"
+        ],
+        "display": "格罗皮乌斯",
+        "accepted": [
+          "格罗皮乌斯"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 5,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "1914科隆大展综合中心大楼设计者是",
+        "。"
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw2-q06",
+      "type": "blank",
+      "chapter": "后现代主义设计",
+      "stem": "最早在建筑上提出“少就是乏味”后现代主义看法的是美国建筑家[?]。",
+      "options": [],
+      "answer": {
+        "value": [
+          "罗伯特.文丘里"
+        ],
+        "display": "罗伯特.文丘里",
+        "accepted": [
+          "罗伯特.文丘里"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:后现代主义"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 6,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "最早在建筑上提出“少就是乏味”后现代主义看法的是美国建筑家",
+        "。"
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw2-q07",
+      "type": "blank",
+      "chapter": "现代主义设计萌起",
+      "stem": "德意志“工作同盟”宣言代表了德国建筑界与设计界所关心的主要问题和宗旨，建立专业[?]与[?]的合作关系，推动了德国产品的世界竞争力。",
+      "options": [],
+      "answer": {
+        "value": [
+          "设计",
+          "生产"
+        ],
+        "display": "设计；生产",
+        "accepted": [
+          "设计",
+          "生产"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:工作同盟"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 7,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "德意志“工作同盟”宣言代表了德国建筑界与设计界所关心的主要问题和宗旨，建立专业",
+        "与",
+        "的合作关系，推动了德国产品的世界竞争力。"
+      ],
+      "blankCount": 2
+    },
+    {
+      "id": "hw2-q08",
+      "type": "blank",
+      "chapter": "包豪斯",
+      "stem": "[?]年第一届包豪斯展览会在德国[?]举行，树立了[?]观念的新认识，吸引了大批企业厂商的设计订单。",
+      "options": [],
+      "answer": {
+        "value": [
+          "1923",
+          "魏玛",
+          "现代设计"
+        ],
+        "display": "1923；魏玛；现代设计",
+        "accepted": [
+          "1923",
+          "魏玛",
+          "现代设计"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:包豪斯"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 8,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "",
+        "年第一届包豪斯展览会在德国",
+        "举行，树立了",
+        "观念的新认识，吸引了大批企业厂商的设计订单。"
+      ],
+      "blankCount": 3
+    },
+    {
+      "id": "hw2-q09",
+      "type": "blank",
+      "chapter": "综合",
+      "stem": "1914年，[?]公司采用世界上第一条流水装配线成功作业。",
+      "options": [],
+      "answer": {
+        "value": [
+          "福特"
+        ],
+        "display": "福特",
+        "accepted": [
+          "福特"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 9,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "1914年，",
+        "公司采用世界上第一条流水装配线成功作业。"
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw2-q10",
+      "type": "blank",
+      "chapter": "装饰艺术运动",
+      "stem": "装饰艺术运动发源于法国，[?]是这场运动的中心。",
+      "options": [],
+      "answer": {
+        "value": [
+          "巴黎"
+        ],
+        "display": "巴黎",
+        "accepted": [
+          "巴黎"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:装饰艺术运动"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 10,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "装饰艺术运动发源于法国，",
+        "是这场运动的中心。"
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw2-q11",
+      "type": "single",
+      "chapter": "工艺美术运动",
+      "stem": "下列属于英国工艺美术运动在金工设计领域代表人物的是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "威廉.莫里斯"
+        },
+        {
+          "key": "B",
+          "text": "阿什比"
+        },
+        {
+          "key": "C",
+          "text": "斯各特"
+        },
+        {
+          "key": "D",
+          "text": "马克穆多"
+        }
+      ],
+      "answer": {
+        "value": [
+          "B"
+        ],
+        "display": "B",
+        "accepted": [
+          "B"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:斯各特",
+        "人物:莫里斯",
+        "人物:阿什比",
+        "人物:马克穆多",
+        "运动:工艺美术运动"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 11,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw2-q12",
+      "type": "single",
+      "chapter": "后现代主义设计",
+      "stem": "英国建筑家里查·罗杰斯设计的法国巴黎蓬皮杜文化中心和伦敦的洛依德保险公司大厦，成为（）建筑设计的典型代表。",
+      "options": [
+        {
+          "key": "A",
+          "text": "微电子风格"
+        },
+        {
+          "key": "B",
+          "text": "高科技风格"
+        },
+        {
+          "key": "C",
+          "text": "减少主义风格"
+        },
+        {
+          "key": "D",
+          "text": "解构主义风格"
+        }
+      ],
+      "answer": {
+        "value": [
+          "B"
+        ],
+        "display": "B",
+        "accepted": [
+          "B"
+        ]
+      },
+      "explain": "---",
+      "tags": [
+        "作品:蓬皮杜",
+        "运动:减少主义",
+        "运动:微电子风格",
+        "运动:解构主义",
+        "运动:高科技风格"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 12,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw2-q13",
+      "type": "single",
+      "chapter": "后现代主义设计",
+      "stem": "悉尼歌剧院是（）设计的。",
+      "options": [
+        {
+          "key": "A",
+          "text": "菲力普·约翰逊"
+        },
+        {
+          "key": "B",
+          "text": "米斯·凡·德罗"
+        },
+        {
+          "key": "C",
+          "text": "约翰·伍重"
+        },
+        {
+          "key": "D",
+          "text": "山琦实"
+        }
+      ],
+      "answer": {
+        "value": [
+          "C"
+        ],
+        "display": "C",
+        "accepted": [
+          "C"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:伍重",
+        "人物:约翰逊",
+        "作品:悉尼歌剧院"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 13,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw2-q14",
+      "type": "single",
+      "chapter": "后现代主义设计",
+      "stem": "被认为是后现代主义代表作之一AT＆T大厦是（）的作品。",
+      "options": [
+        {
+          "key": "A",
+          "text": "查尔斯·穆尔"
+        },
+        {
+          "key": "B",
+          "text": "菲力普·约翰逊"
+        },
+        {
+          "key": "C",
+          "text": "米斯·凡·德罗"
+        },
+        {
+          "key": "D",
+          "text": "吉奥·庞迪"
+        }
+      ],
+      "answer": {
+        "value": [
+          "B"
+        ],
+        "display": "B",
+        "accepted": [
+          "B"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:约翰逊",
+        "作品:AT＆T大厦",
+        "运动:后现代主义"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 14,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw2-q15",
+      "type": "single",
+      "chapter": "新艺术运动",
+      "stem": "“闪电椅子”的设计者是荷兰风格派设计家（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "格利特·里特维德"
+        },
+        {
+          "key": "B",
+          "text": "赫克托·吉马德"
+        },
+        {
+          "key": "C",
+          "text": "格罗皮乌斯"
+        },
+        {
+          "key": "D",
+          "text": "米斯·凡·德罗"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A"
+        ],
+        "display": "A",
+        "accepted": [
+          "A"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:吉马德",
+        "人物:格罗皮乌斯",
+        "人物:里特维德",
+        "作品:闪电椅子",
+        "运动:风格派"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 15,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw2-q16",
+      "type": "single",
+      "chapter": "新艺术运动",
+      "stem": "法国新艺术运动流行（）型风格。",
+      "options": [
+        {
+          "key": "A",
+          "text": "曲线"
+        },
+        {
+          "key": "B",
+          "text": "直线"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A"
+        ],
+        "display": "A",
+        "accepted": [
+          "A"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:新艺术运动"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 16,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw2-q17",
+      "type": "single",
+      "chapter": "后现代主义设计",
+      "stem": "把后现代主义“建筑风格”引用在小产品设计上的一种风格，称为（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "微建筑风格"
+        },
+        {
+          "key": "B",
+          "text": "微电子风格"
+        },
+        {
+          "key": "C",
+          "text": "过渡高科技风格"
+        },
+        {
+          "key": "D",
+          "text": "建筑风格"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A"
+        ],
+        "display": "A",
+        "accepted": [
+          "A"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:后现代主义",
+        "运动:微建筑风格",
+        "运动:微电子风格",
+        "运动:高科技风格"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 17,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw2-q18",
+      "type": "judge",
+      "chapter": "新艺术运动",
+      "stem": "设计师利·凡·德·威尔德是从“新艺术”运动比利时设计中坚到成为现代主义设计主要奠基人的艺术家。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:威尔德",
+        "运动:现代主义设计"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 18,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw2-q19",
+      "type": "judge",
+      "chapter": "工艺美术运动",
+      "stem": "1851年英国水晶宫博览会暴露出了工业生产带来的一系列问题，引发了对于现代设计思想的讨论，并成为英国“工艺美术”运动产生的直接原因。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "作品:水晶宫"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 19,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw2-q20",
+      "type": "judge",
+      "chapter": "包豪斯",
+      "stem": "“包豪斯”设计学院是世界上第一所完全为发展设计教育而建立的学院。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:包豪斯"
+      ],
+      "source": {
+        "homework": 2,
+        "workId": "54136012",
+        "no": 20,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw3-q01",
+      "type": "single",
+      "chapter": "新艺术运动",
+      "stem": "下列属于比利时新艺术运动建筑家维克多·霍塔作品是。",
+      "options": [
+        {
+          "key": "A",
+          "text": "文森公寓"
+        },
+        {
+          "key": "B",
+          "text": "奎尔公园"
+        },
+        {
+          "key": "C",
+          "text": "圣家族教堂"
+        },
+        {
+          "key": "D",
+          "text": "塔塞尔公寓"
+        }
+      ],
+      "answer": {
+        "value": [
+          "D"
+        ],
+        "display": "D",
+        "accepted": [
+          "D"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:霍塔",
+        "作品:圣家族教堂",
+        "作品:塔塞尔公寓",
+        "作品:奎尔公园",
+        "作品:文森公寓",
+        "运动:新艺术运动"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 1,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw3-q02",
+      "type": "single",
+      "chapter": "工艺美术运动",
+      "stem": "“工艺美术”运动缘起于年代的英国。",
+      "options": [
+        {
+          "key": "A",
+          "text": "1850"
+        },
+        {
+          "key": "B",
+          "text": "1889"
+        },
+        {
+          "key": "C",
+          "text": "1897"
+        },
+        {
+          "key": "D",
+          "text": "1900"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A"
+        ],
+        "display": "A",
+        "accepted": [
+          "A"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 2,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw3-q03",
+      "type": "single",
+      "chapter": "工业革命前设计",
+      "stem": "法国巴黎凯旋门、卡鲁塞尔凯旋门、巴黎证交所等建筑都属于运动风格的代表建筑。",
+      "options": [
+        {
+          "key": "A",
+          "text": "巴洛克风格"
+        },
+        {
+          "key": "B",
+          "text": "洛可可风格"
+        },
+        {
+          "key": "C",
+          "text": "新古典主义"
+        },
+        {
+          "key": "D",
+          "text": "维多利亚风格"
+        }
+      ],
+      "answer": {
+        "value": [
+          "C"
+        ],
+        "display": "C",
+        "accepted": [
+          "C"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:新古典主义"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 3,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw3-q04",
+      "type": "single",
+      "chapter": "新艺术运动",
+      "stem": "新艺术运动奥地利维也纳分离派成立于年，并由约瑟夫・奥尔布里希设计建造维也纳分离会馆。",
+      "options": [
+        {
+          "key": "A",
+          "text": "1852"
+        },
+        {
+          "key": "B",
+          "text": "1889"
+        },
+        {
+          "key": "C",
+          "text": "1897"
+        },
+        {
+          "key": "D",
+          "text": "1900"
+        }
+      ],
+      "answer": {
+        "value": [
+          "C"
+        ],
+        "display": "C",
+        "accepted": [
+          "C"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:奥尔布里希",
+        "运动:新艺术运动",
+        "运动:维也纳分离派"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 4,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw3-q05",
+      "type": "single",
+      "chapter": "工业设计与国际主义",
+      "stem": "年开始工业设计成为独立的职业，最早实行工业设计师登记制度的国家是。",
+      "options": [
+        {
+          "key": "A",
+          "text": "1940；美国"
+        },
+        {
+          "key": "B",
+          "text": "1940；德国"
+        },
+        {
+          "key": "C",
+          "text": "1940；法国"
+        },
+        {
+          "key": "D",
+          "text": "1940；英国"
+        }
+      ],
+      "answer": {
+        "value": [
+          "D"
+        ],
+        "display": "D",
+        "accepted": [
+          "D"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 5,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw3-q06",
+      "type": "single",
+      "chapter": "装饰艺术运动",
+      "stem": "卢浮宫《水晶金字塔》的设计者是。",
+      "options": [
+        {
+          "key": "A",
+          "text": "贝伦斯"
+        },
+        {
+          "key": "B",
+          "text": "威廉.凡.阿伦"
+        },
+        {
+          "key": "C",
+          "text": "贝聿铭"
+        },
+        {
+          "key": "D",
+          "text": "密斯"
+        }
+      ],
+      "answer": {
+        "value": [
+          "C"
+        ],
+        "display": "C",
+        "accepted": [
+          "C"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:密斯",
+        "人物:贝伦斯",
+        "人物:贝聿铭",
+        "人物:阿伦"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 6,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw3-q07",
+      "type": "judge",
+      "chapter": "综合",
+      "stem": "中国最早的设计理论专著是《考工记》。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "作品:考工记"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 7,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw3-q08",
+      "type": "judge",
+      "chapter": "工艺美术运动",
+      "stem": "亚瑟·马克穆多既是英国“工艺美术”运动晚期代表人物，也是“新艺术”运动的开创性人物之一。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:马克穆多"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 8,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw3-q09",
+      "type": "judge",
+      "chapter": "新艺术运动",
+      "stem": "新艺术运动在不同国家的称谓不同，在法国称新艺术，德国称青年风格、奥地利称维也纳分离派，意大利称自由风格，在西班牙称现代派。期间法国、西班牙和比利时等国家的设计属于典型新艺术运动曲线型设计风格，英国、奥地利、德国等国的设计则是直线型设计风格。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:新艺术运动",
+        "运动:维也纳分离派",
+        "运动:青年风格"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 9,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw3-q10",
+      "type": "judge",
+      "chapter": "工艺美术运动",
+      "stem": "英国工艺美术运动时期建筑“红屋”是一座融合了英国乡村风格与哥特式风格的工艺美术运动代表性建筑，设计建造者是英国工艺美术运动的核心人物莫里斯。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:莫里斯",
+        "作品:红屋",
+        "运动:工艺美术运动"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 10,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw3-q11",
+      "type": "judge",
+      "chapter": "工艺美术运动",
+      "stem": "威廉·莫里斯、约翰·拉斯金、查尔斯·沃赛、巴里·斯各特都属于英国工艺美术运动的代表性设计师。",
+      "options": [],
+      "answer": {
+        "value": [
+          "F"
+        ],
+        "display": "错",
+        "accepted": [
+          "错",
+          "错误",
+          "F",
+          "false",
+          "×",
+          "否"
+        ]
+      },
+      "explain": "威廉·莫里斯和 约翰·拉斯金都是倡导工艺美术运动的核心人物，威廉·莫里斯设计先锋，约翰·拉斯金则是理论先锋。\n\n\n---",
+      "tags": [
+        "人物:拉斯金",
+        "人物:斯各特",
+        "人物:沃赛",
+        "人物:莫里斯",
+        "运动:工艺美术运动"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 11,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw3-q12",
+      "type": "multiple",
+      "chapter": "现代主义设计萌起",
+      "stem": "下列属于“新建筑”运动设计师的是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "沃尔特・格罗皮乌斯"
+        },
+        {
+          "key": "B",
+          "text": "密斯・凡・德・洛"
+        },
+        {
+          "key": "C",
+          "text": "勒・柯布西耶"
+        },
+        {
+          "key": "D",
+          "text": "阿尔瓦・阿尔托"
+        },
+        {
+          "key": "E",
+          "text": "霍尔曼・穆特修斯"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ],
+        "display": "ABCD",
+        "accepted": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:密斯",
+        "人物:柯布西耶",
+        "人物:格罗皮乌斯",
+        "人物:穆特修斯",
+        "人物:阿尔托"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 12,
+        "typeName": "多选题"
+      }
+    },
+    {
+      "id": "hw3-q13",
+      "type": "multiple",
+      "chapter": "现代主义设计萌起",
+      "stem": "下列属于沃尔特・格罗皮乌斯建筑作品的是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "法格斯鞋楦工厂"
+        },
+        {
+          "key": "B",
+          "text": "德意志工作同盟科隆大展综合中心大楼"
+        },
+        {
+          "key": "C",
+          "text": "包豪斯德绍校区建筑群"
+        },
+        {
+          "key": "D",
+          "text": "巴塞罗那世博会德国馆"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A",
+          "B",
+          "C"
+        ],
+        "display": "ABC",
+        "accepted": [
+          "A",
+          "B",
+          "C"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:格罗皮乌斯",
+        "作品:法格斯鞋楦工厂",
+        "运动:包豪斯",
+        "运动:工作同盟"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 13,
+        "typeName": "多选题"
+      }
+    },
+    {
+      "id": "hw3-q14",
+      "type": "multiple",
+      "chapter": "新艺术运动",
+      "stem": "以下属于西班牙最伟大的建筑家安东尼·高迪作品是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "文森公寓"
+        },
+        {
+          "key": "B",
+          "text": "奎尔公园"
+        },
+        {
+          "key": "C",
+          "text": "米拉公寓"
+        },
+        {
+          "key": "D",
+          "text": "圣家族教堂"
+        },
+        {
+          "key": "E",
+          "text": "巴特罗住宅"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ],
+        "display": "ABCDE",
+        "accepted": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:高迪",
+        "作品:圣家族教堂",
+        "作品:奎尔公园",
+        "作品:巴特罗住宅",
+        "作品:文森公寓",
+        "作品:米拉公寓"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 14,
+        "typeName": "多选题"
+      }
+    },
+    {
+      "id": "hw3-q15",
+      "type": "multiple",
+      "chapter": "新艺术运动",
+      "stem": "奥地利维也纳分离派成立于1897年。以下属于分离派代表人物的是（）。",
+      "options": [
+        {
+          "key": "A",
+          "text": "约瑟夫・奥尔布里希"
+        },
+        {
+          "key": "B",
+          "text": "约瑟夫·霍夫曼"
+        },
+        {
+          "key": "C",
+          "text": "古斯塔夫・克里姆特"
+        },
+        {
+          "key": "D",
+          "text": "奥托・瓦格纳"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A",
+          "B",
+          "D"
+        ],
+        "display": "ABD",
+        "accepted": [
+          "A",
+          "B",
+          "D"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:克里姆特",
+        "人物:奥尔布里希",
+        "人物:瓦格纳",
+        "人物:霍夫曼",
+        "运动:维也纳分离派"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 15,
+        "typeName": "多选题"
+      }
+    },
+    {
+      "id": "hw3-q16",
+      "type": "blank",
+      "chapter": "荷兰风格派",
+      "stem": "现代设计发展前期，奠定了现代建筑、现代设计思想、实践和结构基础的三个现代主义设计试验中心，分别是德国现代主义、荷兰“风格派”和[?]。",
+      "options": [],
+      "answer": {
+        "value": [
+          "俄国的构成主义"
+        ],
+        "display": "俄国的构成主义",
+        "accepted": [
+          "俄国的构成主义"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:现代主义设计",
+        "运动:风格派"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 16,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "现代设计发展前期，奠定了现代建筑、现代设计思想、实践和结构基础的三个现代主义设计试验中心，分别是德国现代主义、荷兰“风格派”和",
+        "。"
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw3-q17",
+      "type": "blank",
+      "chapter": "包豪斯",
+      "stem": "包豪斯三个办学阶段中，魏玛时期实行[?]制教学体制，德绍时期实行[?]制教育并形成了一套成熟的[?]教学体系，影响至今。",
+      "options": [],
+      "answer": {
+        "value": [
+          "双轨制",
+          "教授制",
+          "现代设计"
+        ],
+        "display": "双轨制；教授制；现代设计",
+        "accepted": [
+          "双轨制",
+          "教授制",
+          "现代设计"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:包豪斯"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 17,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "包豪斯三个办学阶段中，魏玛时期实行",
+        "制教学体制，德绍时期实行",
+        "制教育并形成了一套成熟的",
+        "教学体系，影响至今。"
+      ],
+      "blankCount": 3
+    },
+    {
+      "id": "hw3-q18",
+      "type": "blank",
+      "chapter": "后现代主义设计",
+      "stem": "亚历山德罗·门迪尼是[?]世纪后现代主义意大利“[?]”运动代表人物之一。",
+      "options": [],
+      "answer": {
+        "value": [
+          "20",
+          "激进设计"
+        ],
+        "display": "20；激进设计",
+        "accepted": [
+          "20",
+          "激进设计"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:门迪尼",
+        "运动:后现代主义"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 18,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "亚历山德罗·门迪尼是",
+        "世纪后现代主义意大利“",
+        "”运动代表人物之一。"
+      ],
+      "blankCount": 2
+    },
+    {
+      "id": "hw3-q19",
+      "type": "blank",
+      "chapter": "包豪斯",
+      "stem": "包豪斯三个办学阶段分别是[?]时期、[?]时期和[?]时期。",
+      "options": [],
+      "answer": {
+        "value": [
+          "魏玛",
+          "德绍",
+          "柏林"
+        ],
+        "display": "魏玛；德绍；柏林",
+        "accepted": [
+          "魏玛",
+          "德绍",
+          "柏林"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:包豪斯"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 19,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "包豪斯三个办学阶段分别是",
+        "时期、",
+        "时期和",
+        "时期。"
+      ],
+      "blankCount": 3
+    },
+    {
+      "id": "hw3-q20",
+      "type": "blank",
+      "chapter": "新艺术运动",
+      "stem": "法国著名的艾非尔铁塔建造于[?]年，属于法国[?]运动的经典代表之作。",
+      "options": [],
+      "answer": {
+        "value": [
+          "1889",
+          "新艺术"
+        ],
+        "display": "1889；新艺术",
+        "accepted": [
+          "1889",
+          "新艺术"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "作品:艾非尔铁塔"
+      ],
+      "source": {
+        "homework": 3,
+        "workId": "54135980",
+        "no": 20,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "法国著名的艾非尔铁塔建造于",
+        "年，属于法国",
+        "运动的经典代表之作。"
+      ],
+      "blankCount": 2
+    },
+    {
+      "id": "hw4-q01",
+      "type": "single",
+      "chapter": "工艺美术运动",
+      "stem": "1907年，德国通用电器公司AEG聘请设计师担任公司的艺术顾问。他被认为是现代设计意义上的第一位工业设计师是。",
+      "options": [
+        {
+          "key": "A",
+          "text": "罗维"
+        },
+        {
+          "key": "B",
+          "text": "彼得.贝伦斯"
+        },
+        {
+          "key": "C",
+          "text": "莫里斯"
+        },
+        {
+          "key": "D",
+          "text": "斯各特"
+        }
+      ],
+      "answer": {
+        "value": [
+          "B"
+        ],
+        "display": "B",
+        "accepted": [
+          "B"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:斯各特",
+        "人物:罗维",
+        "人物:莫里斯",
+        "人物:贝伦斯"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 1,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw4-q02",
+      "type": "single",
+      "chapter": "新艺术运动",
+      "stem": "法国巴黎地铁口是设计师新艺术运动时期的巅峰之作。",
+      "options": [
+        {
+          "key": "A",
+          "text": "亨利·凡·德·威尔德"
+        },
+        {
+          "key": "B",
+          "text": "赫克托·吉马德"
+        },
+        {
+          "key": "C",
+          "text": "居斯塔夫・艾菲尔"
+        }
+      ],
+      "answer": {
+        "value": [
+          "B"
+        ],
+        "display": "B",
+        "accepted": [
+          "B"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:吉马德",
+        "人物:威尔德",
+        "运动:新艺术运动"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 2,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw4-q03",
+      "type": "single",
+      "chapter": "工艺美术运动",
+      "stem": "现代设计史上第一次大规模的设计改革运动是产生于英国的运动。",
+      "options": [
+        {
+          "key": "A",
+          "text": "工艺美术"
+        },
+        {
+          "key": "B",
+          "text": "新艺术"
+        },
+        {
+          "key": "C",
+          "text": "装饰艺术"
+        },
+        {
+          "key": "D",
+          "text": "现代设计"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A"
+        ],
+        "display": "A",
+        "accepted": [
+          "A"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 3,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw4-q04",
+      "type": "single",
+      "chapter": "装饰艺术运动",
+      "stem": "下面不属于美国纽约“装饰艺术”运动风格建筑的是。",
+      "options": [
+        {
+          "key": "A",
+          "text": "克菜斯勒大厦"
+        },
+        {
+          "key": "B",
+          "text": "洛克非勒中心大厦"
+        },
+        {
+          "key": "C",
+          "text": "帝国大厦"
+        },
+        {
+          "key": "D",
+          "text": "西格莱姆大厦"
+        }
+      ],
+      "answer": {
+        "value": [
+          "D"
+        ],
+        "display": "D",
+        "accepted": [
+          "D"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "作品:帝国大厦",
+        "作品:洛克非勒中心",
+        "作品:西格莱姆大厦"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 4,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw4-q05",
+      "type": "single",
+      "chapter": "新艺术运动",
+      "stem": "是奥地利维也纳分离派创始人之一。",
+      "options": [
+        {
+          "key": "A",
+          "text": "约瑟夫・霍夫曼"
+        },
+        {
+          "key": "B",
+          "text": "蒙特里安"
+        },
+        {
+          "key": "C",
+          "text": "穆特修斯"
+        },
+        {
+          "key": "D",
+          "text": "贝伦斯"
+        }
+      ],
+      "answer": {
+        "value": [
+          "A"
+        ],
+        "display": "A",
+        "accepted": [
+          "A"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:穆特修斯",
+        "人物:蒙特里安",
+        "人物:贝伦斯",
+        "人物:霍夫曼",
+        "运动:维也纳分离派"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 5,
+        "typeName": "单选题"
+      }
+    },
+    {
+      "id": "hw4-q06",
+      "type": "blank",
+      "chapter": "综合",
+      "stem": "现代设计是在现代[?]和[?]背景条件下产生的一种艺术新形式。",
+      "options": [],
+      "answer": {
+        "value": [
+          "工业",
+          "科技"
+        ],
+        "display": "工业；科技",
+        "accepted": [
+          "工业",
+          "科技"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 6,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "现代设计是在现代",
+        "和",
+        "背景条件下产生的一种艺术新形式。"
+      ],
+      "blankCount": 2
+    },
+    {
+      "id": "hw4-q07",
+      "type": "blank",
+      "chapter": "工业革命前设计",
+      "stem": "英国著名的摄政王大街属于新古典主义建筑师[?]改造伦敦计划项目之一。",
+      "options": [],
+      "answer": {
+        "value": [
+          "约翰· 纳什"
+        ],
+        "display": "约翰· 纳什",
+        "accepted": [
+          "约翰· 纳什"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:新古典主义"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 7,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "英国著名的摄政王大街属于新古典主义建筑师",
+        "改造伦敦计划项目之一。"
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw4-q08",
+      "type": "blank",
+      "chapter": "包豪斯",
+      "stem": "包豪斯建筑设计系成立于[?]年，创建者是[?]。",
+      "options": [],
+      "answer": {
+        "value": [
+          "1927",
+          "格罗皮乌斯"
+        ],
+        "display": "1927；格罗皮乌斯",
+        "accepted": [
+          "1927",
+          "格罗皮乌斯"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:包豪斯"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 8,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "包豪斯建筑设计系成立于",
+        "年，创建者是",
+        "。"
+      ],
+      "blankCount": 2
+    },
+    {
+      "id": "hw4-q09",
+      "type": "blank",
+      "chapter": "新艺术运动",
+      "stem": "麦金托什是[?]英国格拉斯哥学派的核心人物.",
+      "options": [],
+      "answer": {
+        "value": [
+          ".新艺术运动"
+        ],
+        "display": ".新艺术运动",
+        "accepted": [
+          ".新艺术运动"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:麦金托什",
+        "运动:格拉斯哥学派"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 9,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "麦金托什是",
+        "英国格拉斯哥学派的核心人物."
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw4-q10",
+      "type": "blank",
+      "chapter": "新艺术运动",
+      "stem": "维也纳分离派、自由风格等属于[?]运动。国际风格属于[?]运动。",
+      "options": [],
+      "answer": {
+        "value": [
+          "新艺术",
+          "现代主义"
+        ],
+        "display": "新艺术；现代主义",
+        "accepted": [
+          "新艺术",
+          "现代主义"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:维也纳分离派"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 10,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "维也纳分离派、自由风格等属于",
+        "运动。国际风格属于",
+        "运动。"
+      ],
+      "blankCount": 2
+    },
+    {
+      "id": "hw4-q11",
+      "type": "blank",
+      "chapter": "工艺美术运动",
+      "stem": "威廉・莫里斯和亚瑟・马克穆多都是英国“工艺美术”运动晚期[?]领域代表性人物。",
+      "options": [],
+      "answer": {
+        "value": [
+          "平面设计"
+        ],
+        "display": "平面设计",
+        "accepted": [
+          "平面设计"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:莫里斯",
+        "人物:马克穆多"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 11,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "威廉・莫里斯和亚瑟・马克穆多都是英国“工艺美术”运动晚期",
+        "领域代表性人物。"
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw4-q12",
+      "type": "blank",
+      "chapter": "包豪斯",
+      "stem": "乌尔姆设计学院创建于[?]年，首任院长是马克斯·比尔。",
+      "options": [],
+      "answer": {
+        "value": [
+          "1953"
+        ],
+        "display": "1953",
+        "accepted": [
+          "1953"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:比尔"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 12,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "乌尔姆设计学院创建于",
+        "年，首任院长是马克斯·比尔。"
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw4-q13",
+      "type": "blank",
+      "chapter": "工业设计与国际主义",
+      "stem": "可口可乐标志和壳牌石油公司Logo的设计者是美国著名工业设计师[?]。",
+      "options": [],
+      "answer": {
+        "value": [
+          "罗维"
+        ],
+        "display": "罗维",
+        "accepted": [
+          "罗维"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 13,
+        "typeName": "填空题"
+      },
+      "stemParts": [
+        "可口可乐标志和壳牌石油公司Logo的设计者是美国著名工业设计师",
+        "。"
+      ],
+      "blankCount": 1
+    },
+    {
+      "id": "hw4-q14",
+      "type": "judge",
+      "chapter": "后现代主义设计",
+      "stem": "家具设计是波普文化最集中体现的方面。",
+      "options": [],
+      "answer": {
+        "value": [
+          "F"
+        ],
+        "display": "错",
+        "accepted": [
+          "错",
+          "错误",
+          "F",
+          "false",
+          "×",
+          "否"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "运动:波普"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 14,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw4-q15",
+      "type": "judge",
+      "chapter": "装饰艺术运动",
+      "stem": "1925年巴黎“装饰艺术展”展厅“新精神宫”的室内和家具设计,提供一幅现代生活室内布置预想图。其设计者是瑞士建筑师勒・柯布西耶，法国巴黎布瓦西的萨伏伊别墅也是其代表作。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:柯布西耶",
+        "作品:新精神宫",
+        "作品:萨伏伊别墅"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 15,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw4-q16",
+      "type": "judge",
+      "chapter": "工业设计与国际主义",
+      "stem": "工业设计是现代设计的主体和核心。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 16,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw4-q17",
+      "type": "judge",
+      "chapter": "现代主义设计萌起",
+      "stem": "1914科隆大争论，是现代设计史上的一场关于实用性功能主义与设计的艺术自由的争论，实质上是设计应否遵循工业化原原则的本质之争。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 17,
+        "typeName": "判断题"
+      }
+    },
+    {
+      "id": "hw4-q18",
+      "type": "judge",
+      "chapter": "荷兰风格派",
+      "stem": "“红黄蓝椅子”是荷兰风格派设计家格利特·里特维德代表作品；著名的“普鲁斯特椅子”是20世纪后现代主义意大利“激进设计”运动代表人物亚历山德罗·门迪尼的经典之作。",
+      "options": [],
+      "answer": {
+        "value": [
+          "T"
+        ],
+        "display": "对",
+        "accepted": [
+          "对",
+          "正确",
+          "T",
+          "true",
+          "√",
+          "是"
+        ]
+      },
+      "explain": "",
+      "tags": [
+        "人物:里特维德",
+        "人物:门迪尼",
+        "作品:普鲁斯特椅子",
+        "作品:红黄蓝椅子",
+        "运动:后现代主义",
+        "运动:激进设计",
+        "运动:风格派"
+      ],
+      "source": {
+        "homework": 4,
+        "workId": "54135953",
+        "no": 18,
+        "typeName": "判断题"
+      }
+    }
+  ]
+}
