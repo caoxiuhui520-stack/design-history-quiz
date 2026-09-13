@@ -78,10 +78,14 @@ export interface KeyPoint {
 
 export interface Essay {
   id: string;
+  /** 论述 / 对比 / 归纳 —— 用于分组，也提示答题体裁 */
+  kind?: string;
   chapter: string;
   title: string;
   prompt: string;
   totalScore: number;
+  /** 答题思路：怎么组织答案、哪些点最容易漏 */
+  tip?: string;
   keyPoints: KeyPoint[];
   reference: string;
   slides: number[];
