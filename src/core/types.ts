@@ -95,6 +95,56 @@ export interface EssayBank {
   essays: Essay[];
 }
 
+/* ---------------------------------------------------------- 解析与知识地图 */
+
+export interface ExplanationBank {
+  schemaVersion: string;
+  course: string;
+  description: string;
+  explanations: Record<string, string>;
+}
+
+export interface EraFigure {
+  name: string;
+  note: string;
+}
+
+export interface Era {
+  id: string;
+  title: string;
+  span: string;
+  century: string;
+  kind: string;
+  regions: string[];
+  moves: string[];
+  summary: string;
+  points: string[];
+  figures: EraFigure[];
+  works: EraFigure[];
+  questions: string[];
+  bridge: string | null;
+}
+
+export interface TimelineLink {
+  from: string;
+  to: string;
+  label: string;
+}
+
+export interface Confusion {
+  pair: string[];
+  note: string;
+}
+
+export interface TimelineBank {
+  schemaVersion: string;
+  course: string;
+  description: string;
+  eras: Era[];
+  links: TimelineLink[];
+  confusions: Confusion[];
+}
+
 /* ------------------------------------------------------------------ 判分 */
 
 export type JudgeMode = 'exact' | 'alias' | 'synonym' | 'numeric' | 'fuzzy' | 'miss';
