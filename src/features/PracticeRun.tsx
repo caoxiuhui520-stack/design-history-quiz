@@ -6,6 +6,7 @@ import type { JudgeResult, Question } from '../core/types';
 import { Feedback } from '../components/Feedback';
 import { QuestionCard, QuestionMeta } from '../components/QuestionCard';
 import { Bar } from '../components/ui';
+import { maybeShuffleOptions } from '../core/practice';
 import type { PracticeSessionSpec } from '../core/practice';
 
 export interface SessionResult {
@@ -28,14 +29,21 @@ export function PracticeRun({
   onExit: () => void;
 }) {
   const store = useStore();
+
+  // 选项乱序在进入本轮时做一次：同一轮内顺序固定，换个轮次顺序不同，
+  // 避免「正确答案总在 B 位」这种位置记忆。
+  const [questions] = useState<Question[]>(() =>
+    maybeShuffleOptions(spec.questions, store.prefs.shuffleOptions),
+  );
+
   const [index, setIndex] = useState(0);
   const [picks, setPicks] = useState<Record<string, string[]>>({});
   const [results, setResults] = useState<Record<string, JudgeResult>>({});
   const startedAt = useRef(Date.now());
   const touchX = useRef<number | null>(null);
 
-  const total = spec.questions.length;
-  const question = spec.questions[index];
+  const total = questions.length;
+  const question = questions[index];
   const locked = Boolean(results[question.id]);
   const draft = picks[question.id] ?? [];
 
@@ -55,12 +63,12 @@ export function PracticeRun({
   const finish = useCallback(() => {
     onFinish({
       label: spec.label,
-      questions: spec.questions,
+      questions,
       picks,
       results,
       durationMs: Date.now() - startedAt.current,
     });
-  }, [onFinish, picks, results, spec]);
+  }, [onFinish, picks, questions, results, spec]);
 
   const goNext = useCallback(() => {
     if (index >= total - 1) finish();
