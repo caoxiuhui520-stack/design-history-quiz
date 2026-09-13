@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { plain, tokenize, type RichDict } from './rich';
-import { questions, richDict } from './data';
+import { essays, questions, richDict } from './data';
 
 const dict: RichDict = {
   person: ['密斯·凡·德·洛', '密斯', '莫里斯'],
@@ -82,5 +82,32 @@ describe('高亮词典', () => {
     const tokens = tokenize(withExplain!.explain, richDict);
     const highlighted = tokens.filter((t) => t.kind !== 'text');
     expect(highlighted.length).toBeGreaterThanOrEqual(3);
+  });
+});
+
+describe('大题数据完整性', () => {
+  it('共 30 道，覆盖论述 / 对比 / 归纳三类', () => {
+    expect(essays.length).toBe(30);
+    const kinds = new Set(essays.map((e) => e.kind ?? '论述'));
+    expect(kinds).toEqual(new Set(['论述', '对比', '归纳']));
+  });
+
+  it('每道题都有答题思路（tip）', () => {
+    const missing = essays.filter((e) => !e.tip?.trim()).map((e) => e.id);
+    expect(missing, `缺 tip：${missing.join(', ')}`).toEqual([]);
+  });
+
+  it('踩分点分值之和等于满分', () => {
+    const bad = essays
+      .filter((e) => e.keyPoints.reduce((n, k) => n + k.score, 0) !== e.totalScore)
+      .map((e) => e.id);
+    expect(bad).toEqual([]);
+  });
+
+  it('每个踩分点都有别名，保证表述差异也能命中', () => {
+    const bad = essays.flatMap((e) =>
+      e.keyPoints.filter((k) => !k.aliases?.length).map((k) => `${e.id}:${k.text.slice(0, 10)}`),
+    );
+    expect(bad).toEqual([]);
   });
 });
