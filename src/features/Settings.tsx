@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { bank, concepts, essays, questions } from '../core/data';
 import { download, pickFile } from '../core/files';
-import { exportProgress, importProgress, resetAll, setNickname, useStore } from '../core/store';
+import { exportProgress, importProgress, resetAll, setNickname, toggleShuffle, useStore } from '../core/store';
 import { useToast } from '../components/ui';
 
 const THEME_KEY = 'dsquiz:theme';
@@ -45,6 +45,17 @@ export function Settings({ onBack }: { onBack: () => void }) {
       </div>
 
       <div className="list">
+        <div className="setting-row">
+          <span>
+            选项乱序
+            <div className="tiny">单选 / 多选的选项每次随机排列，防止背位置</div>
+          </span>
+          <button
+            className={`switch ${store.prefs.shuffleOptions ? 'is-on' : ''}`}
+            aria-label="切换选项乱序"
+            onClick={toggleShuffle}
+          />
+        </div>
         <div className="setting-row">
           <span>
             深色模式
