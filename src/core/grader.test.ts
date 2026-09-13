@@ -3,6 +3,7 @@ import { feedbackHeadline, judge } from './grader';
 import { cn2num, fuzzyLimit, isSynonym, levenshtein, normalize } from './normalize';
 import { questions } from './data';
 import { BOX_INTERVAL, buildReviewQueue, createRecord, dueCount, updateRecord } from './scheduler';
+import { shuffleQuestionOptions } from './practice';
 import type { QRecord, Question } from './types';
 
 /* ------------------------------------------------------------ normalize */
@@ -213,6 +214,53 @@ describe('判断题判分', () => {
   it('答错判错', () => expect(judge(judgeQ, ['T']).correct).toBe(false));
   it('错误文案带出正确答案', () => {
     expect(feedbackHeadline(judgeQ, judge(judgeQ, ['T']))).toContain('错');
+  });
+});
+
+/* -------------------------------------------------------------- 选项乱序 */
+
+describe('选项乱序（防止背位置）', () => {
+  const choiceQs = questions.filter((q) => q.type === 'single' || q.type === 'multiple');
+
+  it('覆盖全部 37 道选择题', () => {
+    expect(choiceQs.length).toBe(37);
+  });
+
+  it('乱序后编号连续、答案文本集合不变、判分仍正确', () => {
+    for (const q of choiceQs) {
+      const s = shuffleQuestionOptions(q);
+      const id = q.id;
+
+      expect(s.options.length, `${id} 选项数量不变`).toBe(q.options.length);
+
+      s.options.forEach((o, i) => {
+        expect(o.key, `${id} 第 ${i} 项编号应为 ${'ABCDE'[i]}`).toBe('ABCDE'[i]);
+      });
+
+      // 答案经过重编号后，指向的文本必须和原来完全一致
+      const before = q.answer.value.map((k) => q.options.find((o) => o.key === k)!.text).sort();
+      const after = s.answer.value.map((k) => s.options.find((o) => o.key === k)!.text).sort();
+      expect(after, `${id} 答案文本集合不变`).toEqual(before);
+
+      expect(judge(s, s.answer.value).correct, `${id} 用重编号后的答案应判对`).toBe(true);
+    }
+  });
+
+  it('同一题多次乱序，答案文本集合始终一致', () => {
+    const q = questions.find((x) => x.id === 'hw3-q14')!; // 五选多的高迪题
+    const baseline = q.answer.value.map((k) => q.options.find((o) => o.key === k)!.text).sort();
+    for (let i = 0; i < 20; i++) {
+      const s = shuffleQuestionOptions(q);
+      const now = s.answer.value.map((k) => s.options.find((o) => o.key === k)!.text).sort();
+      expect(now, `第 ${i} 次乱序`).toEqual(baseline);
+    }
+  });
+
+  it('判断题 / 填空题不做乱序', () => {
+    const j = questions.find((x) => x.type === 'judge')!;
+    const b = questions.find((x) => x.type === 'blank')!;
+    expect(shuffleQuestionOptions(j)).toBe(j);
+    expect(shuffleQuestionOptions(b)).toBe(b);
   });
 });
 
