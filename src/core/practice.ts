@@ -79,3 +79,45 @@ export function typeTiles(all: Question[]): { type: QuestionType; count: number 
     .map((type) => ({ type, count: all.filter((q) => q.type === type).length }))
     .filter((x) => x.count > 0);
 }
+
+/**
+ * 选项乱序：打乱单选 / 多选的选项显示顺序，并**重新编号**。
+ *
+ * 为什么不能只调换顺序、保留原编号：那样会出现「屏幕上第一项是 C、
+ * 正确答案却写着 A」的错位，用户没法把答案和选项对上。
+ * 所以这里按新的显示顺序重排 A/B/C/D/E，并把 answer.value 一并映射过去。
+ *
+ * 判分仍按字母比较，因此映射后正确性不变（有测试覆盖全部选择题）。
+ * 判断题只有「正确 / 错误」两项，乱序反而容易误导，不处理。
+ */
+export function shuffleQuestionOptions(q: Question): Question {
+  if (q.type !== 'single' && q.type !== 'multiple') return q;
+  if (q.options.length < 2) return q;
+
+  const letters = 'ABCDE';
+  const order = shuffle(q.options);
+  const keyMap = new Map<string, string>();
+
+  const options = order.map((opt, i) => {
+    const nextKey = letters[i];
+    keyMap.set(opt.key, nextKey);
+    return { key: nextKey, text: opt.text };
+  });
+
+  const value = q.answer.value.map((k) => keyMap.get(k) ?? k);
+  const display = q.type === 'multiple' ? value.join('') : value[0] ?? '';
+
+  return {
+    ...q,
+    options,
+    answer: { ...q.answer, value, display, accepted: [...value] },
+  };
+}
+
+/** 是否需要乱序：按用户偏好决定 */
+export function maybeShuffleOptions(
+  list: Question[],
+  enabled: boolean,
+): Question[] {
+  return enabled ? list.map(shuffleQuestionOptions) : list;
+}
