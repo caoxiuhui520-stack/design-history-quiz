@@ -113,13 +113,16 @@ export function PracticeSetup({
       </div>
 
       <div>
-        <div className="optgroup-label">题量上限</div>
+        <div className="optgroup-label">一次刷多少题</div>
         <div className="row wrap" style={{ gap: 8 }}>
-          {[0, 10, 20, 40].map((n) => (
+          {[10, 15, 20, 30, 0].map((n) => (
             <button key={n} className={`chip ${limit === n ? 'is-on' : ''}`} onClick={() => setLimit(n)}>
-              {n === 0 ? '不限' : `前 ${n} 题`}
+              {n === 0 ? '不限' : `${n} 题`}
             </button>
           ))}
+        </div>
+        <div className="tiny" style={{ marginTop: 6 }}>
+          建议一次 10–15 题，做完一组再回来「再来一组」——短批次更容易坚持。
         </div>
       </div>
 
