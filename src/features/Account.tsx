@@ -608,9 +608,25 @@ export function Leaderboard({
   onAccount: () => void;
 }) {
   const store = useStore();
+  const [user, setUser] = useState<CloudUser | null>(null);
+  const [checking, setChecking] = useState(true);
   const [rows, setRows] = useState<LeaderRow[] | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let alive = true;
+    getSignedInUser()
+      .then((u) => {
+        if (alive) setUser(u);
+      })
+      .finally(() => {
+        if (alive) setChecking(false);
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   const load = async () => {
     setLoading(true);
@@ -625,8 +641,8 @@ export function Leaderboard({
   };
 
   useEffect(() => {
-    void load();
-  }, []);
+    if (!checking && user) void load();
+  }, [checking, user]);
 
   const myAnswered = store.totals.answered;
   const myCorrect = store.totals.correct;
@@ -653,6 +669,39 @@ export function Leaderboard({
           <div className="tiny">
             你目前的本机成绩：答对 {myCorrect} 题 / 共作答 {myAnswered} 次
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (checking) {
+    return (
+      <div className="stack-lg">
+        <button className="btn btn-ghost btn-sm" style={{ alignSelf: 'flex-start' }} onClick={onBack}>
+          ← 返回首页
+        </button>
+        <h2>排行榜</h2>
+        <div className="card card-flat tiny">正在检查登录状态…</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="stack-lg">
+        <button className="btn btn-ghost btn-sm" style={{ alignSelf: 'flex-start' }} onClick={onBack}>
+          ← 返回首页
+        </button>
+        <h2>排行榜</h2>
+        <div className="card">
+          <div style={{ fontWeight: 500 }}>登录后才能看排行榜</div>
+          <div className="muted" style={{ marginTop: 6, lineHeight: 1.8 }}>
+            排行榜按「答对题数」排名。登录后你的成绩才会出现在榜单上，
+            也才能看到同学刷到哪了 —— 榜单只显示用户名和成绩，不显示邮箱。
+          </div>
+          <button className="btn btn-primary btn-block" style={{ marginTop: 14 }} onClick={onAccount}>
+            去登录 / 注册
+          </button>
         </div>
       </div>
     );
