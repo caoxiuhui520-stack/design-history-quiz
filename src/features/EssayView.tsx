@@ -1,9 +1,19 @@
 import { useMemo, useState } from 'react';
 import { essayBank, essays } from '../core/data';
 import { scoreEssay } from '../core/grader';
-import { CHAPTER_ORDER } from '../core/data';
+import { RichText } from '../components/RichText';
+
+type Kind = '全部' | '论述' | '对比' | '归纳';
+
+const KIND_ORDER: Kind[] = ['全部', '论述', '对比', '归纳'];
+const KIND_NOTE: Record<string, string> = {
+  论述: '展开型：按史实线索分段写全，采分点是「背景 / 主张 / 人物 / 作品 / 影响」。',
+  对比: '辨析型：先同后异、分点并列，每个差异都要点出「两边分别是什么」。',
+  归纳: '清单型：一个个对上号就行，宁可多写几条短的，也不能漏项。',
+};
 
 export function EssayView({ onBack }: { onBack: () => void }) {
+  const [kind, setKind] = useState<Kind>('全部');
   const [activeId, setActiveId] = useState<string | null>(null);
   const [input, setInput] = useState('');
   const [checked, setChecked] = useState(false);
@@ -12,17 +22,12 @@ export function EssayView({ onBack }: { onBack: () => void }) {
   const essay = useMemo(() => essays.find((e) => e.id === activeId) ?? null, [activeId]);
   const auto = useMemo(() => (essay && checked ? scoreEssay(essay, input) : null), [essay, checked, input]);
 
-  const grouped = useMemo(() => {
-    const map = new Map<string, typeof essays>();
-    for (const e of essays) {
-      const list = map.get(e.chapter) ?? [];
-      list.push(e);
-      map.set(e.chapter, list);
-    }
-    return [...map.entries()].sort(
-      (a, b) => CHAPTER_ORDER.indexOf(a[0]) - CHAPTER_ORDER.indexOf(b[0]),
-    );
-  }, []);
+  const visible = useMemo(
+    () => (kind === '全部' ? essays : essays.filter((e) => (e.kind ?? '论述') === kind)),
+    [kind],
+  );
+
+  const totalPoints = essays.reduce((n, e) => n + e.keyPoints.length, 0);
 
   const open = (id: string) => {
     setActiveId(id);
@@ -40,40 +45,53 @@ export function EssayView({ onBack }: { onBack: () => void }) {
           ← 返回首页
         </button>
         <div>
-          <h2>大题自测</h2>
+          <h2>大题（简答 / 论述）</h2>
           <div className="tiny">
-            共 {essayBank.essays.length} 道简答/论述，覆盖 {essayBank.essays.reduce((n, e) => n + e.keyPoints.length, 0)} 个踩分点
+            {essays.length} 道题 · {totalPoints} 个踩分点 · 按老师最可能的出题方向整理
           </div>
         </div>
 
         <div className="card card-flat">
           <div className="tiny">
             用法：先自己在纸上写要点 → 输入关键词 → 检查命中 → 展开参考答案核对。
-            机器判分只看「有没有提到这个点」，请以自身理解为准。
+            机器只看「有没有提到这个点」，判断以你自身理解为准。
           </div>
         </div>
 
-        {grouped.map(([chapter, list]) => (
-          <div key={chapter}>
-            <div className="optgroup-label">{chapter}</div>
-            <div className="list">
-              {list.map((e) => (
-                <button className="list-item" key={e.id} onClick={() => open(e.id)}>
-                  <span className="badge red">{e.totalScore}</span>
-                  <span className="grow">
-                    <div style={{ fontWeight: 500 }}>{e.title}</div>
-                    <div className="tiny">
-                      {e.keyPoints.length} 个得分点 · 课件 p{e.slides.join('/')}
-                    </div>
-                  </span>
-                  <span className="muted" aria-hidden>
-                    →
-                  </span>
-                </button>
-              ))}
-            </div>
+        <div className="row wrap" style={{ gap: 8 }}>
+          {KIND_ORDER.map((k) => {
+            const n = k === '全部' ? essays.length : essays.filter((e) => (e.kind ?? '论述') === k).length;
+            return (
+              <button key={k} className={`chip ${kind === k ? 'is-on' : ''}`} onClick={() => setKind(k)}>
+                {k}
+                {k !== '全部' ? `（${n}）` : `（${n}）`}
+              </button>
+            );
+          })}
+        </div>
+
+        {kind !== '全部' ? (
+          <div className="card card-flat" style={{ borderLeft: '3px solid var(--blue)' }}>
+            <div className="tiny">{KIND_NOTE[kind]}</div>
           </div>
-        ))}
+        ) : null}
+
+        <div className="list">
+          {visible.map((e) => (
+            <button className="list-item" key={e.id} onClick={() => open(e.id)}>
+              <span className="badge red">{e.totalScore}</span>
+              <span className="grow">
+                <div style={{ fontWeight: 500 }}>{e.title}</div>
+                <div className="tiny">
+                  {e.kind ?? '论述'} · {e.keyPoints.length} 个得分点 · {e.chapter}
+                </div>
+              </span>
+              <span className="muted" aria-hidden>
+                →
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
     );
   }
@@ -92,15 +110,26 @@ export function EssayView({ onBack }: { onBack: () => void }) {
 
       <div className="card stack">
         <div className="row wrap" style={{ gap: 6 }}>
+          <span className="badge ghost">{essay.kind ?? '论述'}</span>
           <span className="badge ghost">{essay.chapter}</span>
           <span className="badge ghost">满分 {essay.totalScore}</span>
-          <span className="badge ghost">课件 p{essay.slides.join('/')}</span>
         </div>
         <h2>{essay.title}</h2>
-        <div className="stem" style={{ fontSize: 15, fontWeight: 400 }}>
-          {essay.prompt}
+        <div style={{ fontSize: 15, lineHeight: 1.8 }}>
+          <RichText text={essay.prompt} />
         </div>
       </div>
+
+      {essay.tip ? (
+        <div className="card" style={{ borderLeft: '3px solid var(--blue)' }}>
+          <div className="tiny" style={{ marginBottom: 4 }}>
+            答题思路
+          </div>
+          <div style={{ fontSize: 14, lineHeight: 1.8 }}>
+            <RichText text={essay.tip} />
+          </div>
+        </div>
+      ) : null}
 
       <div>
         <div className="optgroup-label">我的作答（写下关键词即可）</div>
@@ -108,7 +137,7 @@ export function EssayView({ onBack }: { onBack: () => void }) {
           className="textarea"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="例如：1850年代 英国 抵制工业化 哥特风格 拉斯金 莫里斯 第一场大规模风格运动……"
+          placeholder="想到什么写什么，不必成句。例如：1850年代 英国 抵制工业化 哥特 拉斯金 莫里斯 第一场大规模风格运动……"
         />
       </div>
 
@@ -144,7 +173,7 @@ export function EssayView({ onBack }: { onBack: () => void }) {
           </div>
 
           <div>
-            <div className="optgroup-label">踩分点（点一下可手动补勾 / 取消）</div>
+            <div className="optgroup-label">踩分点（自动命中的不可取消；未命中的点一下可手动补勾）</div>
             <div className="list">
               {essay.keyPoints.map((kp, i) => {
                 const autoHit = Boolean(auto?.hits[i]?.hit);
@@ -154,25 +183,26 @@ export function EssayView({ onBack }: { onBack: () => void }) {
                     className="list-item"
                     key={i}
                     onClick={() => {
-                      if (autoHit) return; // 自动命中的不可取消，避免误操作
+                      if (autoHit) return;
                       const next = new Set(manual);
                       if (next.has(i)) next.delete(i);
                       else next.add(i);
                       setManual(next);
                     }}
-                    style={{ background: ok ? 'var(--ok-bg)' : undefined }}
+                    style={{ background: ok ? 'var(--ok-bg)' : undefined, alignItems: 'flex-start' }}
                   >
                     <span
                       className="badge"
                       style={{
                         background: ok ? 'var(--ok)' : 'var(--surface-2)',
                         color: ok ? '#fff' : 'var(--text-2)',
+                        marginTop: 2,
                       }}
                     >
                       {ok ? '✓' : '○'}
                     </span>
-                    <span className="grow" style={{ fontSize: 14 }}>
-                      {kp.text}
+                    <span className="grow" style={{ fontSize: 14, lineHeight: 1.75 }}>
+                      <RichText text={kp.text} />
                     </span>
                     <span className="tiny nowrap">{kp.score} 分</span>
                   </button>
@@ -183,8 +213,8 @@ export function EssayView({ onBack }: { onBack: () => void }) {
 
           <div>
             <div className="optgroup-label">参考答案</div>
-            <div className="card card-flat" style={{ fontSize: 14, lineHeight: 1.85 }}>
-              {essay.reference}
+            <div className="card card-flat" style={{ fontSize: 14, lineHeight: 1.9 }}>
+              <RichText text={essay.reference} />
             </div>
           </div>
 
@@ -197,9 +227,7 @@ export function EssayView({ onBack }: { onBack: () => void }) {
             </button>
           </div>
 
-          <div className="tiny center">
-            建议得分仅供参考，请以自身掌握程度判断
-          </div>
+          <div className="tiny center">建议得分仅供参考，请以自身掌握程度判断</div>
         </>
       )}
     </div>
