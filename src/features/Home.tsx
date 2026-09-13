@@ -8,8 +8,12 @@ import { Bar, pct } from '../components/ui';
 
 interface Props {
   onPractice: (s: PracticeSessionSpec) => void;
-  go: (v: 'setup' | 'wrong' | 'cards' | 'essay' | 'stats') => void;
+  go: (v: 'setup' | 'wrong' | 'cards' | 'essay' | 'stats' | 'map') => void;
 }
+
+/** 一组默认 15 题：用户反馈一次 60 题太长，专注不下来 */
+const BATCH_DEFAULT = 15;
+const BATCH_OPTIONS = [5, 10, 20, 30];
 
 function daysToExam(): number {
   const now = Date.now();
@@ -47,9 +51,7 @@ export function Home({ onPractice, go }: Props) {
 
         <div style={{ marginTop: 14 }}>
           <div className="row-between" style={{ marginBottom: 6 }}>
-            <span style={{ fontWeight: 500 }}>
-              今日待复习 {due.total} 题
-            </span>
+            <span style={{ fontWeight: 500 }}>今日待复习 {due.total} 题</span>
             <span className="tiny">
               错题 {due.wrong} · 到期 {due.due} · 新题 {due.fresh}
             </span>
@@ -57,23 +59,44 @@ export function Home({ onPractice, go }: Props) {
           <Bar value={due.total ? 1 - due.fresh / Math.max(1, questions.length) : 0} />
         </div>
 
+        {/* 默认小批量：一次 15 题更容易专注，做完可以「再来一组」 */}
         <button
           className="btn btn-primary btn-block"
           style={{ marginTop: 14 }}
           disabled={due.total === 0}
-          onClick={() => start({ mode: 'due', limit: 60 })}
+          onClick={() => start({ mode: 'due', limit: BATCH_DEFAULT })}
         >
-          {due.total === 0 ? '今日复习已清空 🎉' : `开始复习（${Math.min(60, due.total)} 题）`}
+          {due.total === 0
+            ? '今日复习已清空 🎉'
+            : `开始复习（${Math.min(BATCH_DEFAULT, due.total)} 题 · 约 8 分钟）`}
         </button>
+
+        {due.total > 0 ? (
+          <div className="row wrap" style={{ gap: 8, marginTop: 10, justifyContent: 'center' }}>
+            <span className="tiny">一次想刷：</span>
+            {BATCH_OPTIONS.map((n) => (
+              <button
+                key={n}
+                className="chip"
+                onClick={() => start({ mode: 'due', limit: n })}
+              >
+                {n} 题
+              </button>
+            ))}
+            <button className="chip" onClick={() => start({ mode: 'due', limit: 999 })}>
+              全部 {due.total} 题
+            </button>
+          </div>
+        ) : null}
       </div>
 
       {/* ---------------------------------------------------------- 快速入口 */}
       <div>
         <div className="optgroup-label">快速开始</div>
         <div className="grid-3">
-          <button className="tile" onClick={() => start({ mode: 'all', order: 'random' })}>
+          <button className="tile" onClick={() => start({ mode: 'all', order: 'random', limit: 20 })}>
             <b>全量乱序</b>
-            <span>{questions.length} 题</span>
+            <span>随机 20 题</span>
           </button>
           <button className="tile" onClick={() => go('wrong')}>
             <b>错题本</b>
@@ -114,6 +137,14 @@ export function Home({ onPractice, go }: Props) {
       <div>
         <div className="optgroup-label">记忆工具</div>
         <div className="list">
+          <button className="list-item" onClick={() => go('map')}>
+            <span className="badge yellow">脉</span>
+            <span className="grow">
+              <b style={{ fontWeight: 500 }}>知识脉络</b>
+              <div className="tiny">时间轴 · 影响关系 · 人物归属 · 易混淆对照</div>
+            </span>
+            <span className="muted">→</span>
+          </button>
           <button className="list-item" onClick={() => go('cards')}>
             <span className="badge blue">卡</span>
             <span className="grow">
