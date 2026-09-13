@@ -30,6 +30,16 @@
   --r-opt: 10px;
 
   --shadow: 0 1px 2px rgba(31, 31, 31, 0.05);
+
+  /* 关键词高亮语义色：时间=蓝，人物=靛紫，作品=青，重点=红 */
+  --hl-time: #1b4c9c;
+  --hl-time-bg: #e9f0fb;
+  --hl-person: #6b3fa0;
+  --hl-person-bg: #f2ecfa;
+  --hl-work: #0f6e56;
+  --hl-work-bg: #e8f5f0;
+  --hl-em: #c4271d;
+  --hl-em-bg: #fdeeed;
 }
 
 [data-theme='dark'] {
@@ -50,6 +60,14 @@
   --no-bg: #33211f;
   --warn: #dfa63a;
   --shadow: none;
+  --hl-time: #8ab6f7;
+  --hl-time-bg: #1b2740;
+  --hl-person: #c0a6ef;
+  --hl-person-bg: #2a2340;
+  --hl-work: #5ccfa8;
+  --hl-work-bg: #16302a;
+  --hl-em: #ff8f85;
+  --hl-em-bg: #3a2320;
 }
 
 * {
@@ -97,6 +115,10 @@ a { color: var(--blue); text-decoration: none; }
   padding-bottom: calc(72px + env(safe-area-inset-bottom));
 }
 
+/* 移动端隐藏桌面侧边栏。此前只在 >=1024px 的媒体查询里定义了 .sidebar 样式，
+   小屏下它会以一个无样式的块级元素堆在正文上方（iOS 上表现为导航「显示不出来」）。 */
+.sidebar { display: none; }
+
 .topbar {
   position: sticky;
   top: 0;
@@ -105,7 +127,9 @@ a { color: var(--blue); text-decoration: none; }
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
+  background: var(--bg); /* 兜底：iOS Safari < 16.2 不支持 color-mix，会整条背景失效 */
   background: color-mix(in srgb, var(--bg) 88%, transparent);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
@@ -148,7 +172,9 @@ a { color: var(--blue); text-decoration: none; }
   z-index: 30;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  background: var(--surface); /* 兜底：见上 */
   background: color-mix(in srgb, var(--surface) 94%, transparent);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border-top: 1px solid var(--line);
   padding-bottom: env(safe-area-inset-bottom);
@@ -332,7 +358,8 @@ a { color: var(--blue); text-decoration: none; }
   transition: border-color 0.15s, background 0.15s, transform 0.12s;
 }
 .opt:hover:not(.is-locked) { border-color: var(--line-strong); }
-.opt.is-picked { border-color: var(--blue); background: color-mix(in srgb, var(--blue) 6%, var(--surface)); }
+.opt.is-picked { border-color: var(--blue); background: #eef3fb; }
+.opt.is-picked { background: color-mix(in srgb, var(--blue) 6%, var(--surface)); }
 .opt.is-correct {
   border-color: var(--ok);
   background: var(--ok-bg);
@@ -432,6 +459,23 @@ a { color: var(--blue); text-decoration: none; }
   line-height: 1.7;
 }
 .explain h3 { font-size: 13px; color: var(--text-2); margin-bottom: 6px; }
+
+/* 关键词高亮（解析 / 要点 / 知识地图通用） */
+.hl { border-radius: 3px; padding: 0 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.hl-time { color: var(--hl-time); background: var(--hl-time-bg); }
+.hl-person { color: var(--hl-person); background: var(--hl-person-bg); }
+.hl-work { color: var(--hl-work); background: var(--hl-work-bg); }
+.hl-move { font-weight: 500; }
+.hl-em { color: var(--hl-em); background: var(--hl-em-bg); font-weight: 500; }
+
+.hl-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  font-size: 12px;
+  color: var(--text-3);
+}
+.hl-legend i { font-style: normal; border-radius: 3px; padding: 0 4px; }
 
 .chip {
   display: inline-block;
