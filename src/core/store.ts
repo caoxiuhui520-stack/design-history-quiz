@@ -119,6 +119,58 @@ export function resetAll(): void {
 
 /* ------------------------------------------------------- 导入 / 导出 */
 
+/**
+ * 合并两份作答记录：同一题取「作答次数更多」的一条，次数相同取时间更近的。
+ * 用于换设备时把云端进度并进本地，既不会丢进度，也不会让陈旧数据覆盖新结果。
+ */
+export function mergeRecords(
+  local: Record<string, QRecord>,
+  remote: Record<string, QRecord>,
+): Record<string, QRecord> {
+  const out: Record<string, QRecord> = { ...local };
+  for (const [id, rb] of Object.entries(remote ?? {})) {
+    const ra = out[id];
+    if (!ra) {
+      out[id] = rb;
+      continue;
+    }
+    const remoteNewer = rb.seen > ra.seen || (rb.seen === ra.seen && rb.lastAt > ra.lastAt);
+    if (remoteNewer) out[id] = rb;
+  }
+  return out;
+}
+
+/** 登录/同步后把云端进度并入本地 */
+export function applyCloudProgress(
+  remoteRecords: Record<string, QRecord>,
+  remoteTotals?: ProgressStore['totals'],
+): { added: number; total: number } {
+  const before = Object.keys(state.records).length;
+  const merged = mergeRecords(state.records, remoteRecords);
+  const after = Object.keys(merged).length;
+
+  // 累计值取两侧较大者，避免合并后计数倒退
+  const totals = remoteTotals
+    ? {
+        answered: Math.max(state.totals.answered, remoteTotals.answered ?? 0),
+        correct: Math.max(state.totals.correct, remoteTotals.correct ?? 0),
+        sessions: Math.max(state.totals.sessions, remoteTotals.sessions ?? 0),
+        startedAt: Math.min(
+          state.totals.startedAt || Date.now(),
+          remoteTotals.startedAt || Date.now(),
+        ),
+      }
+    : state.totals;
+
+  setState({ ...state, records: merged, totals });
+  return { added: after - before, total: after };
+}
+
+/** 导出给云端的最小快照 */
+export function snapshotForCloud() {
+  return { records: state.records, totals: state.totals };
+}
+
 export function exportProgress(): string {
   return JSON.stringify({ ...state, exportedAt: new Date().toISOString() }, null, 2);
 }
