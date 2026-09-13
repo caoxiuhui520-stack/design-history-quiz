@@ -51,7 +51,8 @@ export function Account({
   const [user, setUser] = useState<CloudUser | null>(null);
   const [checking, setChecking] = useState(true);
   const [mode, setMode] = useState<Mode>('login');
-  const [method, setMethod] = useState<LoginMethod>('password');
+  // 默认用邮箱验证码登录：当前环境的「邮箱+密码」身份源未开启，验证码这条路是通的
+  const [method, setMethod] = useState<LoginMethod>('otp');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [code, setCode] = useState('');
@@ -438,6 +439,16 @@ export function Account({
           {mode === 'login' ? (
             <div className="row wrap" style={{ gap: 8 }}>
               <button
+                className={`chip ${method === 'otp' ? 'is-on' : ''}`}
+                onClick={() => {
+                  setMethod('otp');
+                  setStage('form');
+                  setPending(null);
+                }}
+              >
+                邮箱验证码（推荐）
+              </button>
+              <button
                 className={`chip ${method === 'password' ? 'is-on' : ''}`}
                 onClick={() => {
                   setMethod('password');
@@ -447,16 +458,13 @@ export function Account({
               >
                 邮箱 + 密码
               </button>
-              <button
-                className={`chip ${method === 'otp' ? 'is-on' : ''}`}
-                onClick={() => {
-                  setMethod('otp');
-                  setStage('form');
-                  setPending(null);
-                }}
-              >
-                邮箱验证码
-              </button>
+            </div>
+          ) : null}
+
+          {mode === 'login' && method === 'password' ? (
+            <div className="card card-flat" style={{ borderLeft: '3px solid var(--warn)', fontSize: 13 }}>
+              当前环境的密码登录可能未开启。如果点「登录」后提示联系开发者，
+              请改用上面的「邮箱验证码」—— 收个码就能进，不用密码。
             </div>
           ) : null}
 
