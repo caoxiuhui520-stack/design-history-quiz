@@ -3,6 +3,8 @@
 > 把 4 份作业题库（**78 题**）与 30 页课件，做成一个部署在 **GitHub Pages** 上、**手机/电脑通用、支持多人同时在线复习、答题即时反馈**的刷题站。
 > 面向 **2026-09-15《现代设计史》考试**。
 
+**线上地址：<https://caoxiuhui520-stack.github.io/design-history-quiz/>**（手机直接打开即可刷题）
+
 ---
 
 ## 这是什么
@@ -63,11 +65,12 @@
 
 ```bash
 npm ci
-npm run dev        # http://localhost:5173
+npm run dev             # http://localhost:5173
 
-npm run test            # 判分与调度单元测试
+npm run typecheck       # TypeScript 类型检查
+npm run test            # 判分与调度单元测试（114 个用例）
 npm run data:validate   # 数据质量校验（V1–V12）
-npm run build           # 生产构建
+npm run build           # 生产构建（含类型检查）
 npm run preview         # 本地预览构建产物（部署前必跑）
 ```
 
@@ -90,10 +93,38 @@ python tools/validate_data.py data/
 
 ## 技术栈
 
-`Vite 5` · `React 18` · `TypeScript` · `Tailwind CSS 3` · `Zustand` · `HashRouter` · `vite-plugin-pwa` · `Vitest`
-多人同步：`PeerJS (WebRTC 房主星型)` → 降级 `MQTT over WSS` → 兜底 `单机模式`
+`Vite 5` · `React 18` · `TypeScript (strict)` · `Vitest` · 手写 CSS 变量设计系统
+运行时依赖只有 `react` + `react-dom` 两个包。
+
+**两个与初版设计不同的实现选择**（都是为了降低 2 天工期内的翻车概率）：
+
+| 原计划 | 实际采用 | 原因 |
+|---|---|---|
+| Tailwind CSS | 手写 CSS + CSS 变量 | 组件量不大，去掉 3 个构建期依赖，产物 CSS 仅 3.3KB（gzip） |
+| Zustand | 原生 store + `useSyncExternalStore` | 全局只有一个 store，为一个 store 引一个库是负收益 |
+| 运行期 fetch 题库 JSON | **打包进产物**（Vite JSON import） | 没有网络请求 → 不会白屏、不受 Pages 子路径影响、离线天然可用 |
 
 ---
+
+## 已实现 / 待实现
+
+| 模块 | 状态 |
+|---|---|
+| 78 题题库 + 四种题型判分内核 | ✅ 已上线 |
+| 顺序 / 乱序 / 按题型 / 按章节练习 | ✅ 已上线 |
+| 答题即时反馈（对错 + 正确答案 + 解析 + 相关知识点） | ✅ 已上线 |
+| 错题本（自动收录、导出 Markdown 清单） | ✅ 已上线 |
+| 间隔重复复习队列（Leitner 盒） | ✅ 已上线 |
+| 速记卡（31 张，翻卡 + 章节筛选） | ✅ 已上线 |
+| 大题自测（14 道 / 99 个踩分点，命中 + 手动补勾） | ✅ 已上线 |
+| 学习统计（章节掌握度、薄弱章节、题型表现） | ✅ 已上线 |
+| 进度导出 / 导入（换设备不丢） | ✅ 已上线 |
+| 深色模式 | ✅ 已上线 |
+| 多人房间（房间码 / 抢答 PK） | ⏳ 待开发（M3） |
+| PWA 离线安装 | ⏳ 待开发（M4） |
+
+---
+
 
 ## 核心设计决策
 
