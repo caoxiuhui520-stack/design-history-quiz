@@ -46,6 +46,11 @@ export function cloudErrorText(error: unknown): string {
   const msg = e.message ?? String(error ?? '');
   if (/origin/i.test(msg)) return '当前域名未登记，云端功能仅在发布版可用';
   if (/Failed to fetch|NetworkError/i.test(msg)) return '连不上云端，请检查网络';
+  // 云环境身份源未开启「邮箱+密码」登录时，后端会返回这句提示。
+  // 此时验证码登录依然可用（注册时走的就是验证码），引导用户切过去。
+  if (/身份源|用户名密码/.test(msg)) {
+    return '密码登录在当前环境还没开启。请切到「邮箱验证码」登录 —— 你的账号用验证码就能直接进。';
+  }
   return msg || '云端操作失败';
 }
 
