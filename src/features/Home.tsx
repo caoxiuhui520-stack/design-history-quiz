@@ -156,8 +156,8 @@ export function Home({ onPractice, go }: Props) {
           <button className="list-item" onClick={() => go('essay')}>
             <span className="badge red">大</span>
             <span className="grow">
-              <b style={{ fontWeight: 500 }}>大题自测</b>
-              <div className="tiny">14 道简答/论述，踩分点自评</div>
+              <b style={{ fontWeight: 500 }}>大题（论述/对比/归纳）</b>
+              <div className="tiny">30 道题 · 200 个踩分点 · 含答题思路</div>
             </span>
             <span className="muted">→</span>
           </button>
