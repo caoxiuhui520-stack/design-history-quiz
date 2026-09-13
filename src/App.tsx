@@ -9,8 +9,11 @@ import { EssayView } from './features/EssayView';
 import { Stats } from './features/Stats';
 import { Settings } from './features/Settings';
 import { KnowledgeMap } from './features/KnowledgeMap';
+import { Account, Leaderboard } from './features/Account';
 import { ToastProvider } from './components/ui';
 import { completeSession, useStore } from './core/store';
+import { useAutoSync } from './cloud/useAutoSync';
+import { CLOUD_FEATURES_ENABLED } from './cloud/config';
 import type { PracticeSessionSpec } from './core/practice';
 import { questions } from './core/data';
 
@@ -24,6 +27,8 @@ type View =
   | 'essay'
   | 'map'
   | 'stats'
+  | 'account'
+  | 'leaderboard'
   | 'settings';
 
 const VIEWS: View[] = [
@@ -36,6 +41,8 @@ const VIEWS: View[] = [
   'essay',
   'map',
   'stats',
+  'account',
+  'leaderboard',
   'settings',
 ];
 
@@ -51,12 +58,14 @@ const NAV: { view: View; label: string; mark: string }[] = [
   { view: 'map', label: '知识脉络', mark: '脉' },
   { view: 'cards', label: '速记卡', mark: '卡' },
   { view: 'essay', label: '大题', mark: '大' },
+  { view: 'leaderboard', label: '排行榜', mark: '榜' },
   { view: 'stats', label: '统计', mark: '数' },
+  { view: 'account', label: '账号与同步', mark: '云' },
   { view: 'settings', label: '我的', mark: '我' },
 ];
 
 /** 底部 Tab（手机）——顺序即用户的主要动线 */
-const TABS: View[] = ['home', 'setup', 'map', 'cards', 'settings'];
+const TABS: View[] = ['home', 'setup', 'map', 'leaderboard', 'settings'];
 
 export default function App() {
   const [view, setView] = useState<View>(parseHash);
@@ -64,6 +73,9 @@ export default function App() {
   const [result, setResult] = useState<SessionResult | null>(null);
   const [runKey, setRunKey] = useState(0);
   const store = useStore();
+
+  // 登录后自动同步进度到云端（未登录 / 非发布域名时为空操作）
+  useAutoSync();
 
   useEffect(() => {
     const onHash = () => setView(parseHash());
@@ -150,6 +162,12 @@ export default function App() {
               <KnowledgeMap onPractice={startPractice} onBack={() => go('home')} />
             ) : null}
             {effectiveView === 'essay' ? <EssayView onBack={() => go('home')} /> : null}
+            {effectiveView === 'account' ? (
+              <Account onBack={() => go('home')} onLeaderboard={() => go('leaderboard')} />
+            ) : null}
+            {effectiveView === 'leaderboard' ? (
+              <Leaderboard onBack={() => go('home')} onAccount={() => go('account')} />
+            ) : null}
             {effectiveView === 'stats' ? <Stats onBack={() => go('home')} /> : null}
             {effectiveView === 'settings' ? <Settings onBack={() => go('home')} /> : null}
           </main>
