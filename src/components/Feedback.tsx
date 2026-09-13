@@ -1,7 +1,32 @@
+import { useState } from 'react';
 import { describeAnswer, feedbackHeadline } from '../core/grader';
 import { relatedConcepts } from '../core/data';
 import type { JudgeResult, Question } from '../core/types';
+import { RichText } from './RichText';
 import { tagLabel, useToast } from './ui';
+
+/** 颜色图例：让用户知道每种颜色代表什么 */
+export function HighlightLegend() {
+  return (
+    <div className="hl-legend">
+      <span>
+        <i className="hl hl-time">时间</i>
+      </span>
+      <span>
+        <i className="hl hl-person">人物</i>
+      </span>
+      <span>
+        <i className="hl hl-work">作品</i>
+      </span>
+      <span>
+        <i className="hl hl-move">运动</i>
+      </span>
+      <span>
+        <i className="hl hl-em">重点</i>
+      </span>
+    </div>
+  );
+}
 
 export function Feedback({
   question,
@@ -13,12 +38,13 @@ export function Feedback({
   picked: string[];
 }) {
   const notify = useToast();
+  const [showLegend, setShowLegend] = useState(false);
+
   const head = feedbackHeadline(question, result);
   const tone = result.correct ? 'is-ok' : result.mode === 'partial' ? 'is-part' : 'is-no';
 
   const yourText = describeAnswer(question, picked) || '（未作答）';
   const keyText = describeAnswer(question, question.answer.value);
-
   const cards = relatedConcepts(question, 2);
 
   const report = () => {
@@ -57,8 +83,20 @@ export function Feedback({
 
         {question.explain ? (
           <div className="explain">
-            <h3>解析</h3>
-            {question.explain}
+            <div className="row-between" style={{ marginBottom: 6 }}>
+              <h3 style={{ margin: 0 }}>解析</h3>
+              <button
+                className="btn btn-ghost btn-sm"
+                style={{ padding: '0 6px', minHeight: 24, fontSize: 12 }}
+                onClick={() => setShowLegend((v) => !v)}
+              >
+                {showLegend ? '隐藏颜色说明' : '颜色说明'}
+              </button>
+            </div>
+            {showLegend ? <HighlightLegend /> : null}
+            <div style={{ lineHeight: 1.85 }}>
+              <RichText text={question.explain} />
+            </div>
           </div>
         ) : null}
 
@@ -69,7 +107,7 @@ export function Feedback({
               <div key={c.id} style={{ marginBottom: 8 }}>
                 <b style={{ fontWeight: 500 }}>{c.title}</b>
                 <div className="muted" style={{ marginTop: 2 }}>
-                  {c.points[0]}
+                  <RichText text={c.points[0] ?? c.definition} />
                 </div>
               </div>
             ))}
