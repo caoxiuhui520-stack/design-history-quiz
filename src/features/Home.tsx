@@ -8,7 +8,9 @@ import { Bar, pct } from '../components/ui';
 
 interface Props {
   onPractice: (s: PracticeSessionSpec) => void;
-  go: (v: 'setup' | 'wrong' | 'cards' | 'essay' | 'stats' | 'map') => void;
+  go: (
+    v: 'setup' | 'wrong' | 'cards' | 'essay' | 'stats' | 'map' | 'account' | 'leaderboard',
+  ) => void;
 }
 
 /** 一组默认 15 题：用户反馈一次 60 题太长，专注不下来 */
@@ -166,6 +168,22 @@ export function Home({ onPractice, go }: Props) {
             <span className="grow">
               <b style={{ fontWeight: 500 }}>学习统计</b>
               <div className="tiny">章节掌握度与薄弱点</div>
+            </span>
+            <span className="muted">→</span>
+          </button>
+          <button className="list-item" onClick={() => go('leaderboard')}>
+            <span className="badge ghost">榜</span>
+            <span className="grow">
+              <b style={{ fontWeight: 500 }}>排行榜</b>
+              <div className="tiny">按答对题数排名，看看同学刷到哪了</div>
+            </span>
+            <span className="muted">→</span>
+          </button>
+          <button className="list-item" onClick={() => go('account')}>
+            <span className="badge ghost">云</span>
+            <span className="grow">
+              <b style={{ fontWeight: 500 }}>账号与云同步</b>
+              <div className="tiny">换设备也能接着刷，进度自动合并</div>
             </span>
             <span className="muted">→</span>
           </button>
