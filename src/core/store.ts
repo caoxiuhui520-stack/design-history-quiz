@@ -10,14 +10,15 @@ import type { ProgressStore, QRecord } from './types';
 import { createRecord, updateRecord } from './scheduler';
 
 const KEY = 'dsquiz:store:v1';
-const VERSION = 1;
+const VERSION = 2;
 
 function emptyStore(): ProgressStore {
   return {
     version: VERSION,
     records: {},
     totals: { answered: 0, correct: 0, sessions: 0, startedAt: Date.now() },
-    prefs: { nickname: '', shuffleOptions: false },
+    // 选项乱序默认开启：不乱序的话很容易把「正确答案在 B 位」背下来
+    prefs: { nickname: '', shuffleOptions: true },
   };
 }
 
@@ -26,7 +27,15 @@ function load(): ProgressStore {
     const raw = localStorage.getItem(KEY);
     if (!raw) return emptyStore();
     const parsed = JSON.parse(raw) as ProgressStore;
-    if (!parsed || parsed.version !== VERSION) return emptyStore();
+    if (!parsed || typeof parsed !== 'object' || !parsed.records) return emptyStore();
+
+    // v1 → v2 迁移：选项乱序默认改为开启。
+    // v1 里这个字段一直是 false（当时还没有开关界面），不能让它把新默认压掉。
+    if (parsed.version === 1) {
+      parsed.version = 2;
+      parsed.prefs = { ...emptyStore().prefs, ...parsed.prefs, shuffleOptions: true };
+    }
+
     return {
       ...emptyStore(),
       ...parsed,
