@@ -12,8 +12,11 @@
  */
 
 import bankJson from '../../data/questions.json';
+import extraJson from '../../data/questions-extra.json';
 import conceptsJson from '../../data/concepts.json';
 import essaysJson from '../../data/essays.json';
+import essaysExtraJson from '../../data/essays-extra.json';
+import essayHooksJson from '../../data/essay-hooks.json';
 import explanationsJson from '../../data/explanations.json';
 import timelineJson from '../../data/timeline.json';
 import type {
@@ -22,26 +25,48 @@ import type {
   Era,
   Essay,
   EssayBank,
+  EssayExtraBank,
+  EssayHookBank,
   ExplanationBank,
+  ExtraQuestionBank,
   Question,
   TimelineBank,
 } from './types';
 
 export const bank = bankJson as unknown as Bank;
+export const extraBank = extraJson as unknown as ExtraQuestionBank;
 export const conceptBank = conceptsJson as unknown as ConceptBank;
 export const essayBank = essaysJson as unknown as EssayBank;
+export const essayExtraBank = essaysExtraJson as unknown as EssayExtraBank;
+export const essayHooks = essayHooksJson as unknown as EssayHookBank;
 export const explanationBank = explanationsJson as unknown as ExplanationBank;
 export const timelineBank = timelineJson as unknown as TimelineBank;
 
-/** 合并人工解析后的题库 */
-export const questions: Question[] = bank.questions.map((q) => ({
+/**
+ * 合并人工解析后的题库。题目来自两处：
+ *   1. questions.json —— 由 tools/parse_bank.py 从作业题库 Markdown 生成
+ *   2. questions-extra.json —— 从课件与复习资料提炼的补充题
+ * 合并顺序固定（作业题在前、补充题在后），保证 id 稳定、界面顺序可预期。
+ */
+export const questions: Question[] = [...bank.questions, ...extraBank.questions].map((q) => ({
   ...q,
   explain: explanationBank.explanations[q.id] || q.explain || '',
 }));
 
 export const concepts = conceptBank.cards;
-export const essays: Essay[] = essayBank.essays;
 export const eras: Era[] = timelineBank.eras;
+
+/**
+ * 大题：原 essays.json + 复习资料补充的 essays-extra.json，
+ * 并把 essay-hooks.json 里的「记忆钩子 / 答题骨架」按 id 贴上去。
+ */
+export const essays: Essay[] = [...essayBank.essays, ...essayExtraBank.essays].map((e) => {
+  const extra = essayHooks.hooks[e.id];
+  return extra ? { ...e, hook: extra.hook, skeleton: extra.skeleton } : e;
+});
+
+/** 大题记忆总纲（页面顶部展示） */
+export const essayOutline = essayHooks.outline;
 
 /** 考试日期（倒计时用） */
 export const EXAM_DATE = '2026-09-15T08:00:00+08:00';
