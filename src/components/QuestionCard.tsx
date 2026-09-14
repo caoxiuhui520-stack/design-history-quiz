@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import type { JudgeResult, Question } from '../core/types';
-import { TYPE_LABEL } from '../core/scheduler';
+import { STATUS_LABEL, TYPE_LABEL, questionStatus } from '../core/scheduler';
+import { useStore } from '../core/store';
 
 interface Props {
   question: Question;
@@ -221,11 +222,27 @@ export function QuestionCard({
   );
 }
 
+const STATUS_TONE: Record<string, string> = {
+  new: 'blue',
+  weak: 'red',
+  learning: 'ghost',
+  mastered: 'ghost',
+};
+
 export function QuestionMeta({ question }: { question: Question }) {
+  const store = useStore();
+  const status = questionStatus(store.records[question.id]);
   return (
     <div className="row wrap" style={{ gap: 6 }}>
       <span className="badge ghost">{TYPE_LABEL[question.type] ?? question.type}</span>
       <span className="badge ghost">{question.chapter}</span>
+      {/* 告诉用户这题为什么出现：新题优先、薄弱的会多出现、已掌握的少出现 */}
+      <span
+        className={`badge ${STATUS_TONE[status] ?? 'ghost'}`}
+        title="出题权重状态：新题优先 → 待加强 → 巩固中 → 已掌握（少出现）"
+      >
+        {STATUS_LABEL[status]}
+      </span>
       <span className="tiny mono">{question.id}</span>
     </div>
   );
