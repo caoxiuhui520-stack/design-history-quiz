@@ -2,9 +2,33 @@ import { describe, expect, it } from 'vitest';
 import { feedbackHeadline, judge } from './grader';
 import { cn2num, fuzzyLimit, isSynonym, levenshtein, normalize } from './normalize';
 import { questions } from './data';
-import { BOX_INTERVAL, buildReviewQueue, createRecord, dueCount, updateRecord } from './scheduler';
-import { shuffleQuestionOptions } from './practice';
+import {
+  BOX_INTERVAL,
+  buildReviewQueue,
+  createRecord,
+  dueCount,
+  questionStatus,
+  questionWeight,
+  updateRecord,
+  weightedSample,
+} from './scheduler';
+import { buildPractice, shuffleQuestionOptions } from './practice';
 import type { QRecord, Question } from './types';
+
+/**
+ * 测试用确定性伪随机（mulberry32）。
+ * 不要用线性同余：连续种子的首个输出存在相关性，会让「抽样比例」的统计断言偏差，
+ * 从而把「逻辑没问题」误判成失败（这个坑踩过一次）。
+ */
+function mulberry32(seed: number): () => number {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
 /* ------------------------------------------------------------ normalize */
 
@@ -299,33 +323,223 @@ describe('Leitner 调度', () => {
   });
 });
 
-describe('复习队列优先级', () => {
+describe('出题权重：没刷过的优先、错的多的多出现、熟了的沉底', () => {
   const now = 1_000_000;
-  const mk = (id: string): Question => ({ ...singleQ, id, answer: { value: ['A'], display: 'A', accepted: ['A'] } });
-  const list = [mk('fresh'), mk('wrong'), mk('due'), mk('done')];
+  const day = 86_400_000;
+  const rec = (over: Partial<QRecord>): QRecord => ({ ...createRecord(now), seen: 1, ...over });
 
-  const records: Record<string, QRecord> = {
-    wrong: { ...createRecord(now), seen: 2, box: 0, due: now - 1 },
-    due: { ...createRecord(now), seen: 2, box: 2, due: now - 1 },
-    done: { ...createRecord(now), seen: 1, box: 2, due: now + 999_999 },
-  };
+  const fresh = () => questionWeight(undefined, now);
+  // 刷得少：只见过 1 次且答错
+  const thin = () => questionWeight(rec({ seen: 1, correct: 0, wrong: 1, box: 0, due: now - 1 }), now);
+  // 错得多：见过 4 次，只对 1 次，累计错 3 次，逾期 3 天
+  const weak = () =>
+    questionWeight(
+      rec({ seen: 4, correct: 1, wrong: 3, lapses: 3, box: 0, due: now - 3 * day }),
+      now,
+    );
+  // 基本都对，但还没完全掌握
+  const okay = () =>
+    questionWeight(rec({ seen: 3, correct: 2, wrong: 1, lapses: 1, box: 2, due: now - 2 * day }), now);
+  // 已掌握：连对多次、box=4、还没到复习时间
+  const mastered = () =>
+    questionWeight(rec({ seen: 6, correct: 6, box: 4, due: now + day }), now);
 
-  it('顺序为 错题 → 到期 → 新题', () => {
-    const queue = buildReviewQueue(list, records, { now, limit: 10 });
-    expect(queue.map((q) => q.id)).toEqual(['wrong', 'due', 'fresh']);
+  it('新题权重最高', () => {
+    expect(fresh()).toBeGreaterThan(weak());
+    expect(fresh()).toBeGreaterThan(thin());
+    expect(fresh()).toBeGreaterThan(okay());
+    expect(fresh()).toBeGreaterThan(mastered());
   });
 
-  it('未到期且已作答的题不进队列', () => {
-    const queue = buildReviewQueue(list, records, { now, limit: 10 });
-    expect(queue.map((q) => q.id)).not.toContain('done');
+  it('刷得少的、错得多的都高于「基本都对」的', () => {
+    expect(thin()).toBeGreaterThan(okay());
+    expect(weak()).toBeGreaterThan(okay());
+  });
+
+  it('已掌握的权重最低，但仍然 > 0（少出现 ≠ 不出现）', () => {
+    expect(okay()).toBeGreaterThan(mastered());
+    expect(mastered()).toBeGreaterThan(0);
+    // 熟题出现的概率应当远低于新题
+    expect(mastered()).toBeLessThan(fresh() / 10);
+  });
+
+  it('正确率相同的两题，进盒越深权重越低', () => {
+    const base = { seen: 4, correct: 2, wrong: 2, lapses: 2, due: now - 2 * day } as const;
+    const shallow = questionWeight(rec({ ...base, box: 1 }), now);
+    const deep = questionWeight(rec({ ...base, box: 4 }), now);
+    expect(shallow).toBeGreaterThan(deep);
+  });
+
+  it('逾期越久权重越高', () => {
+    const a = questionWeight(rec({ seen: 3, correct: 1, wrong: 2, box: 0, due: now }), now);
+    const b = questionWeight(rec({ seen: 3, correct: 1, wrong: 2, box: 0, due: now - 5 * day }), now);
+    expect(b).toBeGreaterThan(a);
+  });
+
+  it('还没到复习时间的题会被降权', () => {
+    const notDue = questionWeight(rec({ seen: 3, correct: 0, wrong: 3, box: 0, due: now + day }), now);
+    const dueNow = questionWeight(rec({ seen: 3, correct: 0, wrong: 3, box: 0, due: now - 1 }), now);
+    expect(dueNow).toBeGreaterThan(notDue);
+  });
+});
+
+describe('weightedSample：按权重抽样', () => {
+  const items = ['A', 'B', 'C'];
+
+  it('权重全为 0 时退化为按原顺序取，不空转', () => {
+    expect(weightedSample(items, [0, 0, 0], 2, mulberry32(1))).toEqual(['A', 'B']);
+  });
+
+  it('取满时是原集合的一个排列，不重不漏', () => {
+    const out = weightedSample(items, [1, 2, 3], 3, mulberry32(7));
+    expect([...out].sort()).toEqual(['A', 'B', 'C']);
+    expect(out).toHaveLength(3);
+  });
+
+  it('n 大于总数时最多返回全部', () => {
+    expect(weightedSample(items, [1, 1, 1], 99, mulberry32(3))).toHaveLength(3);
+  });
+
+  it('权重极低的项几乎不出现在小样本里', () => {
+    // 100 个高权重 + 1 个几乎为 0 的项，反复抽 1 个：低权重项被抽中的次数应极少
+    const pool = [...Array.from({ length: 100 }, (_, i) => `big${i}`), 'tiny'];
+    const weights = [...Array(100).fill(1000), 0.001];
+    let tinyHits = 0;
+    for (let s = 0; s < 300; s++) {
+      if (weightedSample(pool, weights, 1, mulberry32(s + 1))[0] === 'tiny') tinyHits += 1;
+    }
+    expect(tinyHits).toBeLessThan(5);
+  });
+
+  it('权重高的项被抽中的比例接近其权重占比（3:1 → 约 75%）', () => {
+    let first = 0;
+    const RUNS = 4000;
+    for (let s = 0; s < RUNS; s++) {
+      if (weightedSample(['x', 'y'], [3, 1], 1, mulberry32(s + 1))[0] === 'x') first += 1;
+    }
+    const ratio = first / RUNS;
+    expect(ratio).toBeGreaterThan(0.72);
+    expect(ratio).toBeLessThan(0.78);
+  });
+});
+
+describe('复习队列：按权重出题', () => {
+  const now = 1_000_000;
+  const day = 86_400_000;
+  const mk = (id: string): Question => ({
+    ...singleQ,
+    id,
+    answer: { value: ['A'], display: 'A', accepted: ['A'] },
+  });
+  const list = [mk('fresh'), mk('weak'), mk('done')];
+
+  const records: Record<string, QRecord> = {
+    weak: { ...createRecord(now), seen: 4, correct: 1, wrong: 3, lapses: 3, box: 0, due: now - 3 * day },
+    done: { ...createRecord(now), seen: 6, correct: 6, box: 4, due: now + day },
+  };
+
+  /** 多次抽样统计各题被选中的频率 */
+  function hitRate(limit: number, runs = 400) {
+    const count: Record<string, number> = { fresh: 0, weak: 0, done: 0 };
+    for (let s = 0; s < runs; s++) {
+      const rand = mulberry32(s + 1);
+      for (const q of buildReviewQueue(list, records, { now, limit, rand })) count[q.id] += 1;
+    }
+    return count;
+  }
+
+  it('新题与错题的命中率明显高于已掌握的题', () => {
+    const c = hitRate(2);
+    expect(c.fresh).toBeGreaterThan(c.done);
+    expect(c.weak).toBeGreaterThan(c.done);
+  });
+
+  it('已掌握的题只是「少出现」，仍会被抽到', () => {
+    const c = hitRate(3, 200);
+    expect(c.done).toBeGreaterThan(0);
   });
 
   it('limit 生效', () => {
-    expect(buildReviewQueue(list, records, { now, limit: 2 })).toHaveLength(2);
+    const rand = () => 0.5;
+    expect(buildReviewQueue(list, records, { now, limit: 2, rand })).toHaveLength(2);
+    expect(buildReviewQueue(list, records, { now, limit: 1, rand })).toHaveLength(1);
   });
 
-  it('dueCount 分类计数', () => {
+  it('dueCount 分类计数不受影响', () => {
     const c = dueCount(list, records, now);
-    expect(c).toEqual({ wrong: 1, due: 1, fresh: 1, total: 3 });
+    expect(c).toEqual({ wrong: 1, due: 0, fresh: 1, total: 2 });
+  });
+});
+
+describe('buildPractice：智能排序是默认出题方式', () => {
+  const now = 1_000_000;
+  const day = 86_400_000;
+  const mk = (id: string): Question => ({
+    ...singleQ,
+    id,
+    answer: { value: ['A'], display: 'A', accepted: ['A'] },
+  });
+  const all = [mk('a'), mk('b'), mk('c'), mk('d')];
+  const records: Record<string, QRecord> = {
+    a: { ...createRecord(now), seen: 6, correct: 6, box: 4, due: now + day }, // 已掌握
+    b: { ...createRecord(now), seen: 4, correct: 1, wrong: 3, lapses: 3, box: 0, due: now - day },
+  };
+  // c、d 没有记录 → 视作新题
+
+  it('默认即为 smart 顺序', () => {
+    const s = buildPractice({ mode: 'all' }, all, records, now);
+    expect(s.label).toContain('智能排序');
+  });
+
+  it('小批量出题时，新题几乎占满名额，已掌握的很少被抽到', () => {
+    let masteredPicks = 0;
+    let freshPicks = 0;
+    const RUNS = 300;
+    for (let s = 0; s < RUNS; s++) {
+      const rand = mulberry32(s + 1);
+      for (const q of buildPractice({ mode: 'all', limit: 2 }, all, records, now, rand).questions) {
+        if (q.id === 'a') masteredPicks += 1;
+        if (q.id === 'c' || q.id === 'd') freshPicks += 1;
+      }
+    }
+    expect(freshPicks).toBeGreaterThan(masteredPicks * 3);
+  });
+
+  it('明确指定 random 时不走智能排序', () => {
+    const s = buildPractice({ mode: 'all', order: 'random' }, all, records, now);
+    expect(s.label).toContain('乱序');
+  });
+
+  it('明确指定 sequence 时保持题库顺序', () => {
+    const s = buildPractice({ mode: 'all', order: 'sequence' }, all, records, now);
+    expect(s.questions.map((q) => q.id)).toEqual(['a', 'b', 'c', 'd']);
+  });
+
+  it('limit 会把权重最高的那批留下', () => {
+    const s = buildPractice({ mode: 'all', limit: 2 }, all, records, now, () => 0.99);
+    expect(s.questions).toHaveLength(2);
+  });
+});
+
+describe('题目状态标签', () => {
+  const now = 1_000_000;
+  const rec = (over: Partial<QRecord>): QRecord => ({ ...createRecord(now), ...over });
+
+  it('没记录 → 新题', () => {
+    expect(questionStatus(undefined)).toBe('new');
+    expect(questionStatus(rec({ seen: 0 }))).toBe('new');
+  });
+
+  it('错得多且正确率低 → 待加强', () => {
+    expect(questionStatus(rec({ seen: 3, correct: 1, wrong: 2, box: 0 }))).toBe('weak');
+  });
+
+  it('高正确率或多轮连对 → 已掌握', () => {
+    expect(questionStatus(rec({ seen: 5, correct: 5, box: 4 }))).toBe('mastered');
+    expect(questionStatus(rec({ seen: 3, correct: 3, box: 2 }))).toBe('mastered');
+  });
+
+  it('中间状态 → 巩固中', () => {
+    expect(questionStatus(rec({ seen: 3, correct: 2, wrong: 1, box: 2 }))).toBe('learning');
   });
 });
