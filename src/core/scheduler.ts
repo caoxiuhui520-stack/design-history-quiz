@@ -69,39 +69,142 @@ export function mastery(rec: QRecord | undefined): number {
 export interface QueueOptions {
   now: number;
   limit: number;
+  /** 注入随机源，便于测试；默认 Math.random */
+  rand?: () => number;
+}
+
+/* ---------------------------------------------------------------- 权重 */
+
+/**
+ * 刷题权重常量。集中放在这里，方便解释「为什么这题又出现了」。
+ *
+ * 目标（按用户诉求）：
+ *   没刷过的最优先 → 刷得少的、错得多的次之 → 已经熟了的明显少出现（但不消失）
+ */
+export const WEIGHT = {
+  /** 完全没刷过：绝对优先，直接给最高分 */
+  fresh: 100,
+  /** 刷得少：seen=1 加 36、seen=2 加 18、≥3 不加 */
+  thinStep: 18,
+  thinUpTo: 3,
+  /** 正确率：全错 +40，全对 +0（线性） */
+  accuracySpan: 40,
+  /** 已掌握：进 box3 扣 22、box4 扣 45 */
+  box3Penalty: 22,
+  box4Penalty: 45,
+  /** 到期：逾期每天 +4 分，最多 +30 */
+  overduePerDay: 4,
+  overdueCap: 30,
+  /** 还没到复习时间：扣 25 分（用户想刷还是能刷到，只是概率低） */
+  notDuePenalty: 25,
+  /** 历史累计答错：每次 +10，最多算 4 次（错得多的要明显多出现） */
+  lapseStep: 10,
+  lapseCap: 4,
+  /** 权重下限：保证任何题都还有出现机会（「少出现」而不是「不出现」） */
+  floor: 3,
+};
+
+/**
+ * 单题权重。0 表示最不需要刷，越大越该出现。
+ * 没刷过 → WEIGHT.fresh（100），熟透的沉到 floor（3）。
+ */
+export function questionWeight(rec: QRecord | undefined, now: number): number {
+  if (!rec || rec.seen === 0) return WEIGHT.fresh;
+
+  let score = 0;
+
+  // 刷得少 → 加权（还没形成记忆）
+  score += Math.max(0, WEIGHT.thinUpTo - Math.min(rec.seen, WEIGHT.thinUpTo)) * WEIGHT.thinStep;
+
+  // 正确率低 → 加权
+  score += (1 - rec.correct / Math.max(1, rec.seen)) * WEIGHT.accuracySpan;
+
+  // 已经进了掌握盒 → 降权（这就是「比较熟的少出现」）
+  if (rec.box >= 4) score -= WEIGHT.box4Penalty;
+  else if (rec.box >= 3) score -= WEIGHT.box3Penalty;
+
+  // 到期越久越该复习；还没到期则降权
+  if (rec.due <= now) {
+    score += Math.min(WEIGHT.overdueCap, ((now - rec.due) / 86_400_000) * WEIGHT.overduePerDay);
+  } else {
+    score -= WEIGHT.notDuePenalty;
+  }
+
+  // 累计答错越多，越该再见面
+  score += Math.min(WEIGHT.lapseCap, rec.lapses) * WEIGHT.lapseStep;
+
+  return Math.max(WEIGHT.floor, score);
+}
+
+/** 题目状态标签，用于界面上告诉用户「这题为什么出现」 */
+export type QuestionStatus = 'new' | 'weak' | 'learning' | 'mastered';
+
+export function questionStatus(rec: QRecord | undefined): QuestionStatus {
+  if (!rec || rec.seen === 0) return 'new';
+  const accuracy = rec.correct / Math.max(1, rec.seen);
+  if (rec.box >= 4 || (rec.seen >= 3 && accuracy >= 0.85)) return 'mastered';
+  if (rec.wrong > 0 && accuracy < 0.6) return 'weak';
+  return 'learning';
+}
+
+export const STATUS_LABEL: Record<QuestionStatus, string> = {
+  new: '新题',
+  weak: '待加强',
+  learning: '巩固中',
+  mastered: '已掌握',
+};
+
+/**
+ * 按权重做无放回抽样。
+ *
+ * 选「加权抽样」而不是「按权重排序」的原因：排序会让熟题永远排在最后、再也不会出现，
+ * 而用户要的是「少出现」——抽样能在保证新题/错题优先的同时，让熟题仍有机会被抽到。
+ */
+export function weightedSample<T>(
+  items: T[],
+  weights: number[],
+  n: number,
+  rand: () => number = Math.random,
+): T[] {
+  const pool = items.map((item, i) => ({ item, w: Math.max(0, weights[i] ?? 0) }));
+  const out: T[] = [];
+  const take = Math.min(n, pool.length);
+
+  for (let k = 0; k < take; k++) {
+    const sum = pool.reduce((s, p) => s + p.w, 0);
+    if (sum <= 0) {
+      // 全部权重为 0：退化成按原顺序取，保证不空转
+      out.push(pool.shift()!.item);
+      continue;
+    }
+    let r = rand() * sum;
+    let idx = pool.length - 1;
+    for (let i = 0; i < pool.length; i++) {
+      r -= pool[i].w;
+      if (r <= 0) {
+        idx = i;
+        break;
+      }
+    }
+    out.push(pool[idx].item);
+    pool.splice(idx, 1);
+  }
+  return out;
 }
 
 /**
- * 今日复习队列，优先级：
- *   1. 错题（box=0 且已到期）
- *   2. 其他到期题
- *   3. 未做过的新题
+ * 今日复习队列：按权重抽样。
+ *
+ * 旧实现是「错题 → 到期 → 新题」的固定顺序，新题排在最后，
+ * 与「没刷过的优先」的诉求正好相反，因此改为统一权重。
  */
 export function buildReviewQueue(
   questions: Question[],
   records: Record<string, QRecord>,
-  { now, limit }: QueueOptions,
+  { now, limit, rand }: QueueOptions,
 ): Question[] {
-  const wrong: Question[] = [];
-  const due: Question[] = [];
-  const fresh: Question[] = [];
-
-  for (const q of questions) {
-    const rec = records[q.id];
-    if (!rec || rec.seen === 0) {
-      fresh.push(q);
-    } else if (rec.box === 0) {
-      wrong.push(q);
-    } else if (rec.due <= now) {
-      due.push(q);
-    }
-  }
-
-  const rank = (q: Question) => records[q.id]?.due ?? 0;
-  wrong.sort((a, b) => rank(a) - rank(b));
-  due.sort((a, b) => rank(a) - rank(b));
-
-  return [...wrong, ...due, ...fresh].slice(0, limit);
+  const weights = questions.map((q) => questionWeight(records[q.id], now));
+  return weightedSample(questions, weights, limit, rand);
 }
 
 /** 今日待复习总数（首页展示用） */
