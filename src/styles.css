@@ -692,4 +692,5 @@ a { color: var(--blue); text-decoration: none; }
   .tabbar { display: none; }
   .main { padding: 24px 28px; }
   .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
 }
