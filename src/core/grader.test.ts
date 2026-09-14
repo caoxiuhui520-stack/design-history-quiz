@@ -75,8 +75,8 @@ describe('标准答案自测：78 题用标准答案作答必须全部判对', (
     },
   );
 
-  it('题目总数为 78', () => {
-    expect(questions.length).toBe(78);
+  it('题目总数为 107（作业 78 + 复习资料补充 29）', () => {
+    expect(questions.length).toBe(107);
   });
 });
 
@@ -222,8 +222,8 @@ describe('判断题判分', () => {
 describe('选项乱序（防止背位置）', () => {
   const choiceQs = questions.filter((q) => q.type === 'single' || q.type === 'multiple');
 
-  it('覆盖全部 37 道选择题', () => {
-    expect(choiceQs.length).toBe(37);
+  it('覆盖全部 54 道选择题（作业 37 + 复习资料补充 17）', () => {
+    expect(choiceQs.length).toBe(54);
   });
 
   it('乱序后编号连续、答案文本集合不变、判分仍正确', () => {
