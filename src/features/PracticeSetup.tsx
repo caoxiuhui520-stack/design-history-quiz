@@ -16,7 +16,7 @@ export function PracticeSetup({
   const [mode, setMode] = useState<'all' | 'type' | 'chapter' | 'wrong'>('all');
   const [type, setType] = useState<QuestionType>('single');
   const [chapter, setChapter] = useState(chapters()[0]);
-  const [order, setOrder] = useState<'sequence' | 'random'>('sequence');
+  const [order, setOrder] = useState<'sequence' | 'random' | 'smart'>('smart');
   const [limit, setLimit] = useState<number>(0);
 
   const preview = buildPractice(
@@ -100,7 +100,11 @@ export function PracticeSetup({
 
       <div>
         <div className="optgroup-label">出题顺序</div>
-        <div className="grid-2">
+        <div className="grid-3">
+          <button className={`tile ${order === 'smart' ? 'is-on' : ''}`} onClick={() => setOrder('smart')}>
+            <b>智能排序</b>
+            <span>没刷过的先来</span>
+          </button>
           <button className={`tile ${order === 'sequence' ? 'is-on' : ''}`} onClick={() => setOrder('sequence')}>
             <b>按顺序</b>
             <span>按作业题号</span>
@@ -109,6 +113,10 @@ export function PracticeSetup({
             <b>乱序</b>
             <span>打乱便于检验</span>
           </button>
+        </div>
+        <div className="tiny" style={{ marginTop: 8 }}>
+          智能排序按熟练度加权：<b>没刷过</b>的优先，<b>错得多、刷得少</b>的多出现，
+          <b>正确率高、已掌握</b>的明显少出现（但不会完全不出现）。
         </div>
       </div>
 
