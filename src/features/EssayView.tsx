@@ -1,15 +1,16 @@
 import { useMemo, useState } from 'react';
-import { essayBank, essays } from '../core/data';
+import { essayOutline, essays } from '../core/data';
 import { scoreEssay } from '../core/grader';
 import { RichText } from '../components/RichText';
 
-type Kind = '全部' | '论述' | '对比' | '归纳';
+type Kind = '全部' | '论述' | '对比' | '归纳' | '名词解释';
 
-const KIND_ORDER: Kind[] = ['全部', '论述', '对比', '归纳'];
+const KIND_ORDER: Kind[] = ['全部', '论述', '对比', '归纳', '名词解释'];
 const KIND_NOTE: Record<string, string> = {
   论述: '展开型：按史实线索分段写全，采分点是「背景 / 主张 / 人物 / 作品 / 影响」。',
   对比: '辨析型：先同后异、分点并列，每个差异都要点出「两边分别是什么」。',
   归纳: '清单型：一个个对上号就行，宁可多写几条短的，也不能漏项。',
+  名词解释: '短题型：按「时间 + 定义 + 内容 + 本质」四段写，收尾给一句好记的概括。',
 };
 
 export function EssayView({ onBack }: { onBack: () => void }) {
@@ -45,9 +46,49 @@ export function EssayView({ onBack }: { onBack: () => void }) {
           ← 返回首页
         </button>
         <div>
-          <h2>大题（简答 / 论述）</h2>
+          <h2>大题（简答 / 论述 / 名词解释）</h2>
           <div className="tiny">
-            {essays.length} 道题 · {totalPoints} 个踩分点 · 按老师最可能的出题方向整理
+            {essays.length} 道题 · {totalPoints} 个踩分点 · 每道都有记忆钩子与答题骨架
+          </div>
+        </div>
+
+        {/* 记忆总纲：先建立骨架，再逐题攻 */}
+        <div className="card" style={{ borderLeft: '3px solid var(--red)' }}>
+          <div className="optgroup-label" style={{ marginTop: 0 }}>
+            记忆总纲（先看这个）
+          </div>
+          <div style={{ fontSize: 14, lineHeight: 1.85 }}>
+            <RichText text={essayOutline.oneLine} />
+          </div>
+
+          <div className="row wrap" style={{ gap: 6, marginTop: 12 }}>
+            {essayOutline.chain.map((step, i) => (
+              <span
+                key={step}
+                className="badge ghost"
+                style={{ background: 'var(--surface-2)', fontWeight: 500 }}
+              >
+                {step}
+                {i < essayOutline.chain.length - 1 ? ' →' : ''}
+              </span>
+            ))}
+          </div>
+          <div className="tiny" style={{ marginTop: 6 }}>
+            {essayOutline.chainNote}
+          </div>
+
+          <div className="optgroup-label" style={{ marginTop: 14 }}>
+            口诀速记
+          </div>
+          <div className="stack" style={{ gap: 6 }}>
+            {essayOutline.mnemonics.map((m) => (
+              <div key={m.label} className="row" style={{ gap: 8, alignItems: 'baseline' }}>
+                <span className="tiny nowrap" style={{ minWidth: 96 }}>
+                  {m.label}
+                </span>
+                <span style={{ fontWeight: 500, fontSize: 14 }}>{m.value}</span>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -82,7 +123,12 @@ export function EssayView({ onBack }: { onBack: () => void }) {
               <span className="badge red">{e.totalScore}</span>
               <span className="grow">
                 <div style={{ fontWeight: 500 }}>{e.title}</div>
-                <div className="tiny">
+                {e.hook ? (
+                  <div className="tiny" style={{ marginTop: 2 }}>
+                    💡 {e.hook}
+                  </div>
+                ) : null}
+                <div className="tiny" style={{ marginTop: 2 }}>
                   {e.kind ?? '论述'} · {e.keyPoints.length} 个得分点 · {e.chapter}
                 </div>
               </span>
@@ -119,6 +165,27 @@ export function EssayView({ onBack }: { onBack: () => void }) {
           <RichText text={essay.prompt} />
         </div>
       </div>
+
+      {essay.hook ? (
+        <div className="card" style={{ borderLeft: '3px solid var(--red)' }}>
+          <div className="tiny" style={{ marginBottom: 4 }}>
+            记忆钩子
+          </div>
+          <div style={{ fontSize: 15, lineHeight: 1.8, fontWeight: 500 }}>
+            <RichText text={essay.hook} />
+          </div>
+          {essay.skeleton ? (
+            <>
+              <div className="tiny" style={{ marginTop: 12, marginBottom: 4 }}>
+                答题骨架
+              </div>
+              <div style={{ fontSize: 14, lineHeight: 1.8 }}>
+                <RichText text={essay.skeleton} />
+              </div>
+            </>
+          ) : null}
+        </div>
+      ) : null}
 
       {essay.tip ? (
         <div className="card" style={{ borderLeft: '3px solid var(--blue)' }}>
