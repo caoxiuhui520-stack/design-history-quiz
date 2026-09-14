@@ -50,6 +50,17 @@ export interface Bank {
   questions: Question[];
 }
 
+/**
+ * 补充题库：从课件/复习资料提炼的额外题目，与脚本生成的作业题库分文件存放，
+ * 这样重跑 parse_bank.py 不会把补充题冲掉。
+ */
+export interface ExtraQuestionBank {
+  schemaVersion: string;
+  course: string;
+  description: string;
+  questions: Question[];
+}
+
 export interface ConceptCard {
   id: string;
   chapter: string;
@@ -78,7 +89,7 @@ export interface KeyPoint {
 
 export interface Essay {
   id: string;
-  /** 论述 / 对比 / 归纳 —— 用于分组，也提示答题体裁 */
+  /** 论述 / 对比 / 归纳 / 名词解释 —— 用于分组，也提示答题体裁 */
   kind?: string;
   chapter: string;
   title: string;
@@ -86,6 +97,10 @@ export interface Essay {
   totalScore: number;
   /** 答题思路：怎么组织答案、哪些点最容易漏 */
   tip?: string;
+  /** 记忆钩子：一句话勾住这道题该背的内容（来自 essay-hooks.json） */
+  hook?: string;
+  /** 答题骨架：答案的分段结构（来自 essay-hooks.json） */
+  skeleton?: string;
   keyPoints: KeyPoint[];
   reference: string;
   slides: number[];
@@ -97,6 +112,33 @@ export interface EssayBank {
   course: string;
   description: string;
   essays: Essay[];
+}
+
+/** 补充大题：从复习资料提炼的高频名词解释与论述题 */
+export interface EssayExtraBank {
+  schemaVersion: string;
+  course: string;
+  description: string;
+  essays: Essay[];
+}
+
+export interface Mnemonic {
+  label: string;
+  value: string;
+}
+
+/** 大题记忆层：总纲 + 口诀 + 每题的记忆钩子与答题骨架 */
+export interface EssayHookBank {
+  schemaVersion: string;
+  course: string;
+  description: string;
+  outline: {
+    oneLine: string;
+    chain: string[];
+    chainNote: string;
+    mnemonics: Mnemonic[];
+  };
+  hooks: Record<string, { hook: string; skeleton: string }>;
 }
 
 /* ---------------------------------------------------------- 解析与知识地图 */
