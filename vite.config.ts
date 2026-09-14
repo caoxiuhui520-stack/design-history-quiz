@@ -29,7 +29,8 @@ export default defineConfig({
     allowedHosts: true,
   },
   test: {
+    // 纯逻辑测试跑在 node 下；组件交互测试用文件头的 @vitest-environment jsdom 单独指定
     environment: 'node',
-    include: ['src/**/*.test.ts'],
+    include: ['src/**/*.test.{ts,tsx}'],
   },
 });
