@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { plain, tokenize, type RichDict } from './rich';
-import { essays, questions, richDict } from './data';
+import { essayOutline, essays, questions, richDict } from './data';
 
 const dict: RichDict = {
   person: ['密斯·凡·德·洛', '密斯', '莫里斯'],
@@ -52,7 +52,8 @@ describe('tokenize 关键词分词', () => {
 });
 
 describe('解析数据完整性', () => {
-  it('78 题全部有非空解析', () => {
+  it('107 题全部有非空解析（作业 78 + 复习资料补充 29）', () => {
+    expect(questions.length).toBe(107);
     const missing = questions.filter((q) => !q.explain.trim()).map((q) => q.id);
     expect(missing, `缺少解析：${missing.join(', ')}`).toEqual([]);
   });
@@ -86,10 +87,23 @@ describe('高亮词典', () => {
 });
 
 describe('大题数据完整性', () => {
-  it('共 30 道，覆盖论述 / 对比 / 归纳三类', () => {
-    expect(essays.length).toBe(30);
+  it('共 44 道，覆盖论述 / 对比 / 归纳 / 名词解释四类', () => {
+    expect(essays.length).toBe(44);
     const kinds = new Set(essays.map((e) => e.kind ?? '论述'));
-    expect(kinds).toEqual(new Set(['论述', '对比', '归纳']));
+    expect(kinds).toEqual(new Set(['论述', '对比', '归纳', '名词解释']));
+  });
+
+  it('每道题都有记忆钩子与答题骨架', () => {
+    const noHook = essays.filter((e) => !e.hook?.trim()).map((e) => e.id);
+    const noSkeleton = essays.filter((e) => !e.skeleton?.trim()).map((e) => e.id);
+    expect(noHook, `缺 hook：${noHook.join(', ')}`).toEqual([]);
+    expect(noSkeleton, `缺 skeleton：${noSkeleton.join(', ')}`).toEqual([]);
+  });
+
+  it('记忆总纲有主线、链条与口诀', () => {
+    expect(essayOutline.oneLine.length).toBeGreaterThan(30);
+    expect(essayOutline.chain.length).toBe(6);
+    expect(essayOutline.mnemonics.length).toBeGreaterThanOrEqual(4);
   });
 
   it('每道题都有答题思路（tip）', () => {
