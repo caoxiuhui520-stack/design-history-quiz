@@ -84,7 +84,9 @@ export default function App() {
   }, []);
 
   const go = (v: View) => {
-    if (v === 'run' && !session) return;
+    // 这里刻意不判断 session：startPractice 里 setSession 与 go('run') 属于同一批更新，
+    // 闭包里读到的 session 还是旧值（首次进入时是 null），会把「开始复习」这次跳转吃掉，
+    // 表现就是点了一次没反应、要再点一次。缺少 session 的情况已由 effectiveView 兜回首页。
     window.location.hash = `#/${v}`;
     setView(v);
     window.scrollTo({ top: 0 });
