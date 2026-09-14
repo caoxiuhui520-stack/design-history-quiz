@@ -1,11 +1,23 @@
-import { TYPE_LABEL, buildReviewQueue, shuffle } from './scheduler';
+import {
+  TYPE_LABEL,
+  buildReviewQueue,
+  questionWeight,
+  shuffle,
+  weightedSample,
+} from './scheduler';
 import type { QRecord, Question, QuestionType } from './types';
 
 export interface PracticeSpec {
   mode: 'all' | 'type' | 'chapter' | 'wrong' | 'due';
   type?: QuestionType;
   chapter?: string;
-  order?: 'sequence' | 'random';
+  /**
+   * 出题顺序：
+   *   smart    —— 按权重抽样（默认）：没刷过的优先，错的多的多出现，熟了的少出现
+   *   random   —— 完全随机
+   *   sequence —— 按题库顺序
+   */
+  order?: 'sequence' | 'random' | 'smart';
   limit?: number;
 }
 
@@ -23,8 +35,9 @@ export function buildPractice(
   all: Question[],
   records: Record<string, QRecord>,
   now = Date.now(),
+  rand: () => number = Math.random,
 ): PracticeSessionSpec {
-  const order = spec.order ?? 'sequence';
+  const order = spec.order ?? 'smart';
   let label = '';
   let list: Question[];
 
@@ -51,9 +64,10 @@ export function buildPractice(
       break;
     }
     case 'due': {
-      list = buildReviewQueue(all, records, { now, limit: spec.limit ?? 60 });
+      // 「今日复习」本身已经是按权重抽的，不再叠加排序
+      list = buildReviewQueue(all, records, { now, limit: spec.limit ?? 60, rand });
       label = `今日复习 ${list.length} 题`;
-      break;
+      return { label, questions: list };
     }
     default:
       list = [...all];
@@ -63,7 +77,13 @@ export function buildPractice(
   if (order === 'random') {
     list = shuffle(list);
     label += ' · 乱序';
+  } else if (order === 'smart') {
+    // 按权重做无放回抽样，得到一个「最该刷的排前面」的整体顺序
+    const weights = list.map((q) => questionWeight(records[q.id], now));
+    list = weightedSample(list, weights, list.length, rand);
+    label += ' · 智能排序';
   }
+
   if (spec.limit && spec.limit < list.length) {
     list = list.slice(0, spec.limit);
     label = `${label.split(' ')[0]} 前 ${spec.limit} 题`;
